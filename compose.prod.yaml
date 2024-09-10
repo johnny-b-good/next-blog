@@ -1,5 +1,5 @@
 services:
-  next-app:
+  app-prod:
     build:
       context: .
       dockerfile: Dockerfile.prod
