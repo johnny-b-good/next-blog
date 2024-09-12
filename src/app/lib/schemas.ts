@@ -4,7 +4,7 @@ import { z } from "zod";
 export const BlogPostSchema = z.object({
   id: z.number(),
   title: z.string(),
-  content: z.string(),
+  content: z.string().min(1, "Обязательное поле"),
   createdAt: z.date(),
   updatedAt: z.date(),
 });
