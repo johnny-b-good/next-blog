@@ -14,10 +14,7 @@ export const Label: FC<HeadlessLabelProps> = ({
   ...props
 }) => {
   return (
-    <HeadlessLabel
-      className={clsx("text-sm font-semibold", className)}
-      {...props}
-    >
+    <HeadlessLabel className={clsx("font-semibold", className)} {...props}>
       {children}
     </HeadlessLabel>
   );

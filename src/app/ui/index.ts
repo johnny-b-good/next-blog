@@ -8,3 +8,4 @@ export * from "./Label";
 export * from "./Field";
 export * from "./Textarea";
 export * from "./DropdowMenu";
+export * from "./LinkButton";

@@ -1,27 +1,26 @@
 // Lib
 // -----------------------------------------------------------------------------
-import { FC } from "react";
-import {
-  Button as HeadlessButton,
-  ButtonProps as HeadlessButtonProps,
-} from "@headlessui/react";
+import { FC, ReactNode } from "react";
 import { clsx } from "clsx";
+import Link, { LinkProps } from "next/link";
 
 // Props
 // -----------------------------------------------------------------------------
-export interface ButtonProps extends HeadlessButtonProps {
+export interface LinkButtonProps extends LinkProps {
   variant?: "primary" | "default" | "text";
+  className?: string;
+  children: ReactNode;
 }
 
-/** Button component */
-export const Button: FC<ButtonProps> = ({
+/** Link button component */
+export const LinkButton: FC<LinkButtonProps> = ({
   className,
   variant = "default",
   children,
   ...props
 }) => {
   return (
-    <HeadlessButton
+    <Link
       className={clsx(
         "flex items-center gap-2 whitespace-nowrap rounded border px-4 py-2 font-semibold outline-none transition-colors",
         "focus:border-cyan-500 focus:ring focus:ring-cyan-200 focus:ring-opacity-50",
@@ -40,6 +39,6 @@ export const Button: FC<ButtonProps> = ({
       {...props}
     >
       {children}
-    </HeadlessButton>
+    </Link>
   );
 };

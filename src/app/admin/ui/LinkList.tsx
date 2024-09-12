@@ -2,31 +2,32 @@
 // -----------------------------------------------------------------------------
 import { ReactNode } from "react";
 import { clsx } from "clsx";
+import Link from "next/link";
 
 // Props
 // -----------------------------------------------------------------------------
-export interface ListProps<T extends { id: number }> {
+export interface LinkListProps<T extends { id: number }> {
   items: T[];
+  className?: string;
   renderItem: (item: T) => ReactNode;
-  listClassName?: string;
-  itemClassName?: string;
-  emptyMessage?: ReactNode;
+  makeUrl: (item: T) => string;
 }
 
-/** List component */
-export const List = <T extends { id: number }>({
+/** Link list component */
+export const LinkList = <T extends { id: number }>({
   items,
+  className,
   renderItem,
-  listClassName,
-  itemClassName,
-  emptyMessage = "Список пуст",
-}: ListProps<T>) => {
+  makeUrl,
+}: LinkListProps<T>) => {
   return (
-    <div className={clsx("rounded bg-white text-sm shadow", listClassName)}>
+    <div className={clsx("rounded bg-white shadow", className)}>
       {items.map((item, index) => (
-        <div
+        <Link
+          href={makeUrl(item)}
           className={clsx(
-            "flex cursor-pointer px-4 py-2 text-sm transition-colors hover:bg-slate-50",
+            "flex cursor-pointer items-baseline gap-4 px-4 py-2 outline-none transition-colors hover:bg-cyan-50",
+            "focus:border-cyan-300 focus:ring focus:ring-cyan-200 focus:ring-opacity-50",
 
             index !== items.length - 1 &&
               "border-b border-solid border-b-slate-300",
@@ -34,16 +35,14 @@ export const List = <T extends { id: number }>({
             index === 0 && "rounded-t",
 
             index === items.length - 1 && "rounded-b",
-
-            itemClassName,
           )}
           key={item.id}
         >
           {renderItem(item)}
-        </div>
+        </Link>
       ))}
 
-      {items.length === 0 && <div className="px-4 py-2">{emptyMessage}</div>}
+      {items.length === 0 && <div className="px-3 py-2">Список пуст</div>}
     </div>
   );
 };

@@ -30,7 +30,7 @@ export interface DropdownMenuProps {
 export const DropdownMenu: FC<DropdownMenuProps> = ({ items }) => {
   return (
     <Menu>
-      <MenuButton className="inline-flex rounded bg-transparent p-1 text-slate-700 data-[hover]:bg-white data-[open]:bg-white data-[hover]:bg-opacity-50 data-[open]:bg-opacity-50 data-[hover]:text-teal-500 data-[open]:text-teal-500">
+      <MenuButton className="inline-flex rounded bg-transparent p-1 text-slate-700 data-[hover]:bg-white data-[open]:bg-white data-[hover]:bg-opacity-50 data-[open]:bg-opacity-50 data-[hover]:text-cyan-500 data-[open]:text-cyan-500">
         <EllipsisHorizontalIcon className="size-6" />
       </MenuButton>
 
@@ -50,7 +50,7 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({ items }) => {
             return (
               <MenuItem key={item.label}>
                 <Button
-                  className="inline-flex items-center gap-2 rounded bg-transparent px-2 py-1 text-slate-700 hover:text-teal-500"
+                  className="inline-flex items-center gap-2 rounded bg-transparent px-2 py-1 text-slate-700 hover:text-cyan-500"
                   onClick={item.onClick}
                   disabled={item.disabled}
                 >
