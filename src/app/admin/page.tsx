@@ -1,13 +1,13 @@
 // Lib
 // -----------------------------------------------------------------------------
 import { PlusIcon } from "@heroicons/react/24/solid";
-import dayjs from "dayjs";
 
 // App
 // -----------------------------------------------------------------------------
 import { LinkButton, Input } from "@/app/ui";
 import prisma from "@/app/lib/db";
 import { LinkList } from "./ui";
+import { formatDateTime } from "@/app/lib/utils";
 
 export default async function AdminPage() {
   const allBlogPosts = await prisma.blogPost.findMany();
@@ -27,7 +27,7 @@ export default async function AdminPage() {
           <>
             {blogPost.title}
             <span className="text-sm text-slate-500">
-              {dayjs(blogPost.createdAt).format("DD MMM YYYY, HH:mm")}
+              {formatDateTime(blogPost.createdAt)}
             </span>
           </>
         )}

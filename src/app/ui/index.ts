@@ -11,3 +11,4 @@ export * from "./DropdowMenu";
 export * from "./LinkButton";
 export * from "./FieldError";
 export * from "./Alert";
+export * from "./BlogPostView";
