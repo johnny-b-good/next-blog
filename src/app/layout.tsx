@@ -1,4 +1,9 @@
+import dayjs from "dayjs";
+import "dayjs/locale/ru";
+
 import "./globals.css";
+
+dayjs.locale("ru");
 
 export default function RootLayout({
   children,

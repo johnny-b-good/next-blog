@@ -1,6 +1,7 @@
 // Lib
 // -----------------------------------------------------------------------------
 import { PlusIcon } from "@heroicons/react/24/solid";
+import dayjs from "dayjs";
 
 // App
 // -----------------------------------------------------------------------------
@@ -26,7 +27,7 @@ export default async function AdminPage() {
           <>
             {blogPost.title}
             <span className="text-sm text-slate-500">
-              {blogPost.createdAt.toISOString()}
+              {dayjs(blogPost.createdAt).format("DD MMM YYYY, HH:mm")}
             </span>
           </>
         )}
