@@ -1,5 +1,10 @@
 FROM node:20-slim AS base
 
+# Install OS deps
+RUN apt-get update && apt-get install -y \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
 # 1. Install dependencies only when needed
 FROM base AS deps
 WORKDIR /app

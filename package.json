@@ -10,12 +10,16 @@
     "docker-dev": "docker compose -f compose.dev.yaml up --build",
     "docker-build": "docker compose -f compose.prod.yaml build",
     "docker-start": "docker compose -f compose.prod.yaml up -d",
-    "docker-stop": "docker compose -f compose.prod.yaml down"
+    "docker-stop": "docker compose -f compose.prod.yaml down",
+    "docker-prisma-migrate": "docker exec -it next-blog-app-dev npx prisma migrate",
+    "docker-prisma-reset": "docker exec -it next-blog-app-dev npx prisma reset"
   },
   "dependencies": {
     "@headlessui/react": "^2.1.6",
     "@heroicons/react": "^2.1.5",
+    "@prisma/client": "^5.19.1",
     "next": "14.2.9",
+    "prisma": "^5.19.1",
     "react": "^18",
     "react-dom": "^18"
   },
