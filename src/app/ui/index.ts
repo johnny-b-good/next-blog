@@ -12,3 +12,5 @@ export * from "./LinkButton";
 export * from "./FieldError";
 export * from "./Alert";
 export * from "./BlogPostView";
+export * from "./SearchInput";
+export * from "./Pagination";

@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 
 import prisma from "@/app/lib/db";
 import { BlogPostForm } from "@/app/admin/ui";
-import { updateBlogPost } from "@/app/lib/actions";
+import { updateBlogPost } from "@/app/admin/lib/actions";
 
 export default async function AdminEditPostPage({
   params,

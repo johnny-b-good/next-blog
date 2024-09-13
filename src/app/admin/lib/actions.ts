@@ -8,7 +8,7 @@ import { redirect } from "next/navigation";
 // App
 // -----------------------------------------------------------------------------
 import prisma from "@/app/lib/db";
-import { CreateBlogPostSchema, UpdateBlogPostSchema } from "./schemas";
+import { CreateBlogPostSchema, UpdateBlogPostSchema } from "../../lib/schemas";
 
 /** Состояние формы поста */
 export type BlogPostFormState = {

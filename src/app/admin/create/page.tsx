@@ -1,5 +1,5 @@
 import { BlogPostForm } from "@/app/admin/ui";
-import { createBlogPost } from "@/app/lib/actions";
+import { createBlogPost } from "@/app/admin/lib/actions";
 
 export default async function AdminCreatePostPage() {
   return (

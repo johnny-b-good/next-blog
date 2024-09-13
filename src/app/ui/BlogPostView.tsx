@@ -1,21 +1,15 @@
 import { BlogPost } from "@prisma/client";
-import DOMPurify from "dompurify";
 import { marked } from "marked";
-import { JSDOM } from "jsdom";
 import { FC } from "react";
 
 import { formatDateTime } from "../lib/utils";
-
-const { window } = new JSDOM("<!DOCTYPE html>");
 
 export type BlogPostViewProps = {
   blogPost: BlogPost;
 };
 
 export const BlogPostView: FC<BlogPostViewProps> = async ({ blogPost }) => {
-  const content = DOMPurify(window).sanitize(
-    await marked.parse(blogPost.content),
-  );
+  const content = await marked.parse(blogPost.content);
 
   return (
     <article>

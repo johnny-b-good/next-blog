@@ -19,7 +19,7 @@ import {
   FieldError,
   Alert,
 } from "@/app/ui";
-import { BlogPostFormState } from "@/app/lib/actions";
+import { BlogPostFormState } from "@/app/admin/lib/actions";
 
 // Props
 // -----------------------------------------------------------------------------
