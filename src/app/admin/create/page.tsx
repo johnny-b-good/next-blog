@@ -1,10 +1,17 @@
 import { BlogPostForm } from "@/app/admin/ui";
+import { Breadcrumbs } from "@/app/ui";
 import { createBlogPost } from "@/app/admin/lib/actions";
 
 export default async function AdminCreatePostPage() {
   return (
     <div>
-      <h2 className="mb-4 text-xl font-semibold">Создать пост</h2>
+      <Breadcrumbs
+        className="mb-4"
+        parts={[
+          { text: "Администрирование", url: "/admin" },
+          { text: "Создать пост" },
+        ]}
+      />
 
       <BlogPostForm action={createBlogPost} />
     </div>

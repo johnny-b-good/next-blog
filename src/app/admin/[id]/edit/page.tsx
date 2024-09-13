@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 
 import prisma from "@/app/lib/db";
+import { Breadcrumbs } from "@/app/ui";
 import { BlogPostForm } from "@/app/admin/ui";
 import { updateBlogPost } from "@/app/admin/lib/actions";
 
@@ -21,7 +22,13 @@ export default async function AdminEditPostPage({
 
   return (
     <div>
-      <h2 className="mb-4 text-xl font-semibold">Редактировать пост</h2>
+      <Breadcrumbs
+        className="mb-4"
+        parts={[
+          { text: "Администрирование", url: "/admin" },
+          { text: "Редактировать пост" },
+        ]}
+      />
 
       <BlogPostForm action={updateBlogPostWithId} blogPost={blogPost} />
     </div>
