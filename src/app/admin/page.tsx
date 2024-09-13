@@ -6,7 +6,7 @@ import { PlusIcon } from "@heroicons/react/24/solid";
 // -----------------------------------------------------------------------------
 import { LinkButton, SearchInput, Pagination, Breadcrumbs } from "@/app/ui";
 import { LinkList } from "./ui";
-import { getFilteredPosts } from "./lib/queries";
+import { getPaginatedFilteredPosts } from "@/app/lib/queries";
 import { formatDateTime } from "@/app/lib/utils";
 
 export default async function AdminPage({
@@ -20,7 +20,7 @@ export default async function AdminPage({
   const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
 
-  const { blogPosts, blogPostsPages } = await getFilteredPosts(
+  const { blogPosts, blogPostsPages } = await getPaginatedFilteredPosts(
     currentPage,
     query,
   );
