@@ -23,8 +23,8 @@ export const Select = <T extends number | string>({
   return (
     <HeadlessSelect
       className={clsx(
-        "block w-full cursor-pointer appearance-none rounded border border-slate-300 bg-white px-2 py-1 text-sm text-slate-700 shadow-sm outline-none transition-colors",
-        "focus:border-teal-500 focus:ring focus:ring-teal-200 focus:ring-opacity-50",
+        "block w-full cursor-pointer appearance-none rounded border border-slate-300 bg-white px-4 py-2 text-slate-700 shadow-sm outline-none transition-colors",
+        "focus:border-cyan-500 focus:ring focus:ring-cyan-200 focus:ring-opacity-50",
         className,
       )}
       {...props}

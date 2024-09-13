@@ -16,8 +16,8 @@ export const Input: FC<InputProps> = ({ className, children, ...props }) => {
   return (
     <HeadlessInput
       className={clsx(
-        "block w-full rounded border-slate-300 px-2 py-1 text-sm shadow-sm placeholder:text-slate-300",
-        "focus:border-teal-300 focus:ring focus:ring-teal-200 focus:ring-opacity-50",
+        "block w-full rounded border-slate-300 px-4 py-2 shadow-sm placeholder:text-slate-300",
+        "focus:border-cyan-300 focus:ring focus:ring-cyan-200 focus:ring-opacity-50",
         className,
       )}
       {...props}

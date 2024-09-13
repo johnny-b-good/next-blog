@@ -17,26 +17,32 @@ export interface ButtonProps extends HeadlessButtonProps {
 export const Button: FC<ButtonProps> = ({
   className,
   variant = "default",
+  disabled,
   children,
   ...props
 }) => {
   return (
     <HeadlessButton
       className={clsx(
-        "flex items-center gap-2 whitespace-nowrap rounded border px-2 py-1 text-sm outline-none transition-colors",
-        "focus:border-teal-500 focus:ring focus:ring-teal-200 focus:ring-opacity-50",
+        "flex items-center gap-2 whitespace-nowrap rounded border px-4 py-2 font-semibold shadow-sm outline-none transition-colors",
+
+        "disabled:cursor-not-allowed disabled:border-slate-300 disabled:bg-slate-100 disabled:text-slate-300 disabled:hover:border-slate-300 disabled:hover:text-slate-300",
+
+        !disabled &&
+          "focus:border-cyan-500 focus:ring focus:ring-cyan-200 focus:ring-opacity-50",
 
         variant === "primary" &&
-          "border-teal-600 bg-teal-500 text-white shadow-sm hover:border-teal-500 hover:bg-teal-400",
+          "border-cyan-600 bg-cyan-500 text-white hover:border-cyan-500 hover:bg-cyan-400",
 
         variant === "default" &&
-          "border-slate-300 bg-white text-slate-700 shadow-sm hover:border-teal-500 hover:text-teal-500",
+          "border-slate-300 bg-white text-slate-700 hover:border-cyan-500 hover:text-cyan-500",
 
         variant === "text" &&
-          "border-transparent bg-transparent text-slate-700 hover:bg-white hover:bg-opacity-50 hover:text-teal-500",
+          "border-transparent bg-transparent text-slate-700 hover:bg-white hover:bg-opacity-50 hover:text-cyan-500",
 
         className,
       )}
+      disabled={disabled}
       {...props}
     >
       {children}
