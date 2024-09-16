@@ -6,7 +6,7 @@ import { notFound } from "next/navigation";
 // -----------------------------------------------------------------------------
 import { getPost } from "@/lib/queries";
 import { Breadcrumbs } from "@/ui";
-import { BlogPostForm } from "@/app/admin/ui";
+import { BlogPostForm } from "@/app/admin/posts/ui";
 import { updateBlogPost } from "@/lib/actions";
 
 export default async function AdminEditPostPage({
@@ -27,9 +27,10 @@ export default async function AdminEditPostPage({
   return (
     <div>
       <Breadcrumbs
-        className="mb-4"
+        className="mb-8"
         parts={[
           { text: "Администрирование", url: "/admin" },
+          { text: "Записи", url: "/admin/posts" },
           { text: "Редактировать пост" },
         ]}
       />
