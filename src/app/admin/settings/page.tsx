@@ -1,8 +1,13 @@
 // App
 // -----------------------------------------------------------------------------
 import { Breadcrumbs } from "@/ui";
+import { SettingsForm } from "./ui";
+import { getSettings } from "@/lib/queries";
+import { updateSettings } from "@/lib/actions";
 
 export default async function AdminSettingsPage() {
+  const settings = await getSettings();
+
   return (
     <>
       <Breadcrumbs
@@ -12,6 +17,8 @@ export default async function AdminSettingsPage() {
           { text: "Настройки" },
         ]}
       />
+
+      <SettingsForm settings={settings} action={updateSettings} />
     </>
   );
 }

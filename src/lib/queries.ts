@@ -58,3 +58,7 @@ export const getPaginatedFilteredPosts = async (
 export const getPost = async (id: number) => {
   return await prisma.blogPost.findFirst({ where: { id } });
 };
+
+export const getSettings = async () => {
+  return await prisma.settings.findFirstOrThrow();
+};
