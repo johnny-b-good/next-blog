@@ -24,3 +24,8 @@ export const UpdateBlogPostSchema = BlogPostSchema.omit({
   createdAt: true,
   updatedAt: true,
 });
+
+export const SettingsSchema = z.object({
+  siteName: z.string().min(1, "Обязательное поле"),
+  copyright: z.string().min(1, "Обязательное поле"),
+});
