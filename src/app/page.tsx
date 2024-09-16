@@ -16,12 +16,12 @@ export default async function HomePage({
   const { blogPosts, blogPostsPages } = await getPaginatedPosts(currentPage);
 
   return (
-    <main className="mx-auto my-8 grid max-w-5xl grid-cols-1 gap-4">
+    <section className="grid grid-cols-1 gap-4">
       {blogPosts.map((blogPost) => (
         <BlogPostView key={blogPost.id} blogPost={blogPost} />
       ))}
 
       <Pagination totalPages={blogPostsPages} />
-    </main>
+    </section>
   );
 }

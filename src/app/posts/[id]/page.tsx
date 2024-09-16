@@ -13,9 +13,5 @@ export default async function HomePage({ params }: { params: { id: string } }) {
     notFound();
   }
 
-  return (
-    <main className="mx-auto my-8 grid max-w-5xl grid-cols-1 gap-4">
-      <BlogPostView key={blogPost.id} blogPost={blogPost} />
-    </main>
-  );
+  return <BlogPostView key={blogPost.id} blogPost={blogPost} />;
 }

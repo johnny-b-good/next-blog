@@ -14,7 +14,11 @@ export const BlogPostView: FC<BlogPostViewProps> = async ({ blogPost }) => {
 
   return (
     <article className="rounded bg-white p-4 shadow">
-      <Link href={`/posts/${blogPost.id}`}>{blogPost.title}</Link>
+      <h2 className="mb-4">
+        <Link href={`/posts/${blogPost.id}`} className="text-2xl no-underline">
+          {blogPost.title}
+        </Link>
+      </h2>
 
       <div>{formatDateTime(blogPost.createdAt)}</div>
 
