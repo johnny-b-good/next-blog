@@ -1,8 +1,8 @@
 // App
 // ---------------------------------------------------------------------------
+import { getPaginatedPosts } from "@/lib/queries";
+import { Pagination } from "@/ui";
 import { BlogPostView } from "@/app/ui";
-import { getPaginatedPosts } from "./lib/queries";
-import { Pagination } from "@/app/ui";
 
 export default async function HomePage({
   searchParams,

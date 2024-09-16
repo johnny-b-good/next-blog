@@ -1,6 +1,5 @@
 import "./globals.css";
-
-import { SiteHeader, SiteFooter } from "./ui";
+import { SiteHeader, SiteFooter } from "@/app/ui";
 
 export default function RootLayout({
   children,

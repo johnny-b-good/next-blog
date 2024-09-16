@@ -1,9 +1,13 @@
+// Lib
+// -----------------------------------------------------------------------------
 import { BlogPost } from "@prisma/client";
 import { marked } from "marked";
 import { FC } from "react";
 
-import { Link } from "./Link";
-import { formatDateTime } from "../lib/utils";
+// App
+// -----------------------------------------------------------------------------
+import { Link } from "@/ui";
+import { formatDateTime } from "@/lib/utils";
 
 export type BlogPostViewProps = {
   blogPost: BlogPost;

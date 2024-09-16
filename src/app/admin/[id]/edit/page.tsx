@@ -1,9 +1,13 @@
+// Lib
+// -----------------------------------------------------------------------------
 import { notFound } from "next/navigation";
 
-import { getPost } from "@/app/lib/queries";
-import { Breadcrumbs } from "@/app/ui";
+// App
+// -----------------------------------------------------------------------------
+import { getPost } from "@/lib/queries";
+import { Breadcrumbs } from "@/ui";
 import { BlogPostForm } from "@/app/admin/ui";
-import { updateBlogPost } from "@/app/admin/lib/actions";
+import { updateBlogPost } from "@/lib/actions";
 
 export default async function AdminEditPostPage({
   params,

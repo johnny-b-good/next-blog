@@ -1,6 +1,8 @@
+// App
+// -----------------------------------------------------------------------------
 import { BlogPostForm } from "@/app/admin/ui";
-import { Breadcrumbs } from "@/app/ui";
-import { createBlogPost } from "@/app/admin/lib/actions";
+import { Breadcrumbs } from "@/ui";
+import { createBlogPost } from "@/lib/actions";
 
 export default async function AdminCreatePostPage() {
   return (

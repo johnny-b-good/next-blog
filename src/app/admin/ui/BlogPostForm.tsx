@@ -18,8 +18,8 @@ import {
   LinkButton,
   FieldError,
   Alert,
-} from "@/app/ui";
-import { BlogPostFormState } from "@/app/admin/lib/actions";
+} from "@/ui";
+import { BlogPostFormState } from "@/lib/actions";
 
 // Props
 // -----------------------------------------------------------------------------

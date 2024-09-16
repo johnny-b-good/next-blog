@@ -4,10 +4,15 @@ import { PlusIcon } from "@heroicons/react/24/solid";
 
 // App
 // -----------------------------------------------------------------------------
-import { LinkButton, SearchInput, Pagination, Breadcrumbs } from "@/app/ui";
-import { LinkList } from "./ui";
-import { getPaginatedFilteredPosts } from "@/app/lib/queries";
-import { formatDateTime } from "@/app/lib/utils";
+import {
+  LinkButton,
+  SearchInput,
+  Pagination,
+  Breadcrumbs,
+  LinkList,
+} from "@/ui";
+import { getPaginatedFilteredPosts } from "@/lib/queries";
+import { formatDateTime } from "@/lib/utils";
 
 export default async function AdminPage({
   searchParams,

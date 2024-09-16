@@ -1,8 +1,11 @@
+// Lib
+// ---------------------------------------------------------------------------
+import { notFound } from "next/navigation";
+
 // App
 // ---------------------------------------------------------------------------
 import { BlogPostView } from "@/app/ui";
-import { getPost } from "@/app/lib/queries";
-import { notFound } from "next/navigation";
+import { getPost } from "@/lib/queries";
 
 export default async function HomePage({ params }: { params: { id: string } }) {
   const id = parseInt(params.id);

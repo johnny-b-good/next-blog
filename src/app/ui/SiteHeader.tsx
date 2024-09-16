@@ -1,4 +1,6 @@
-import { Link } from "./Link";
+// App
+// -----------------------------------------------------------------------------
+import { Link } from "@/ui";
 
 export const SiteHeader = () => {
   return (

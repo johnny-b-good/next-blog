@@ -1,4 +1,6 @@
-import prisma from "@/app/lib/db";
+// App
+// -----------------------------------------------------------------------------
+import prisma from "@/lib/db";
 
 export const getPaginatedPosts = async (currentPage: number) => {
   const itemsPerPage = 10;
