@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 
-import prisma from "@/app/lib/db";
+import { getPost } from "@/app/lib/queries";
 import { Breadcrumbs } from "@/app/ui";
 import { BlogPostForm } from "@/app/admin/ui";
 import { updateBlogPost } from "@/app/admin/lib/actions";
@@ -12,7 +12,7 @@ export default async function AdminEditPostPage({
 }) {
   const id = parseInt(params.id);
 
-  const blogPost = await prisma.blogPost.findFirst({ where: { id } });
+  const blogPost = await getPost(id);
 
   if (!blogPost) {
     notFound();

@@ -15,3 +15,6 @@ export * from "./BlogPostView";
 export * from "./SearchInput";
 export * from "./Pagination";
 export * from "./BreadCrumbs";
+export * from "./SiteHeader";
+export * from "./Link";
+export * from "./SiteFooter";

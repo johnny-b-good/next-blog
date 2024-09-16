@@ -1,16 +1,27 @@
 // App
 // ---------------------------------------------------------------------------
-import prisma from "@/app/lib/db";
 import { BlogPostView } from "@/app/ui";
+import { getPaginatedPosts } from "./lib/queries";
+import { Pagination } from "@/app/ui";
 
-export default async function Home() {
-  const allBlogPosts = await prisma.blogPost.findMany();
+export default async function HomePage({
+  searchParams,
+}: {
+  searchParams?: {
+    page?: string;
+  };
+}) {
+  const currentPage = Number(searchParams?.page) || 1;
+
+  const { blogPosts, blogPostsPages } = await getPaginatedPosts(currentPage);
 
   return (
-    <main className="max-w-prose p-8">
-      {allBlogPosts.map((blogPost) => (
+    <section className="grid grid-cols-1 gap-4">
+      {blogPosts.map((blogPost) => (
         <BlogPostView key={blogPost.id} blogPost={blogPost} />
       ))}
-    </main>
+
+      <Pagination totalPages={blogPostsPages} />
+    </section>
   );
 }
