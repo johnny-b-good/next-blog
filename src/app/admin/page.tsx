@@ -48,7 +48,7 @@ export default async function AdminPage({
             <>
               {blogPost.title}
               <span className="text-sm text-slate-500">
-                {formatDateTime(blogPost.createdAt)}
+                {formatDateTime(blogPost.updatedAt)}
               </span>
             </>
           )}

@@ -9,6 +9,9 @@ export const getPaginatedPosts = async (currentPage: number) => {
   const blogPosts = await prisma.blogPost.findMany({
     skip: offset,
     take: itemsPerPage,
+    orderBy: {
+      updatedAt: "desc",
+    },
   });
 
   const blogPostsCount = await prisma.blogPost.count();
@@ -29,10 +32,13 @@ export const getPaginatedFilteredPosts = async (
     select: {
       id: true,
       title: true,
-      createdAt: true,
+      updatedAt: true,
     },
     where: {
       OR: [{ title: { contains: query } }, { content: { contains: query } }],
+    },
+    orderBy: {
+      updatedAt: "desc",
     },
     skip: offset,
     take: itemsPerPage,
