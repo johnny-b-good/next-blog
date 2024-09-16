@@ -1,6 +1,7 @@
 // Lib
 // -----------------------------------------------------------------------------
 import { PlusIcon } from "@heroicons/react/24/solid";
+import { Metadata } from "next";
 
 // App
 // -----------------------------------------------------------------------------
@@ -66,3 +67,7 @@ export default async function AdminPostsPage({
     </>
   );
 }
+
+export const metadata: Metadata = {
+  title: "Записи",
+};

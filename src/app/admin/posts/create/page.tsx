@@ -1,3 +1,7 @@
+// Lib
+// -----------------------------------------------------------------------------
+import { Metadata } from "next";
+
 // App
 // -----------------------------------------------------------------------------
 import { BlogPostForm } from "@/app/admin/posts/ui";
@@ -20,3 +24,7 @@ export default async function AdminCreatePostPage() {
     </div>
   );
 }
+
+export const metadata: Metadata = {
+  title: "Создать пост",
+};

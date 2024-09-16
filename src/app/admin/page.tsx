@@ -1,6 +1,7 @@
 // Lib
 // -----------------------------------------------------------------------------
 import { CogIcon, DocumentIcon } from "@heroicons/react/24/outline";
+import type { Metadata } from "next";
 
 // App
 // -----------------------------------------------------------------------------
@@ -25,3 +26,7 @@ export default async function AdminPage() {
     </>
   );
 }
+
+export const metadata: Metadata = {
+  title: "Администрирование",
+};

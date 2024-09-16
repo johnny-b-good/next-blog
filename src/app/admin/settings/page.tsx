@@ -1,3 +1,7 @@
+// Lib
+// -----------------------------------------------------------------------------
+import type { Metadata } from "next";
+
 // App
 // -----------------------------------------------------------------------------
 import { Breadcrumbs } from "@/ui";
@@ -22,3 +26,7 @@ export default async function AdminSettingsPage() {
     </>
   );
 }
+
+export const metadata: Metadata = {
+  title: "Настройки",
+};

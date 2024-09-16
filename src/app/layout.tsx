@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import { getSettings } from "@/lib/queries";
 import "./globals.css";
 import { SiteHeader, SiteFooter } from "@/app/ui";
@@ -22,4 +24,15 @@ export default async function RootLayout({
       </body>
     </html>
   );
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const { siteName } = await getSettings();
+
+  return {
+    title: {
+      template: `%s :: ${siteName}`,
+      default: siteName,
+    },
+  };
 }

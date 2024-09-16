@@ -1,6 +1,7 @@
 // Lib
 // -----------------------------------------------------------------------------
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
 // App
 // -----------------------------------------------------------------------------
@@ -39,3 +40,7 @@ export default async function AdminEditPostPage({
     </div>
   );
 }
+
+export const metadata: Metadata = {
+  title: "Редактировать пост",
+};
