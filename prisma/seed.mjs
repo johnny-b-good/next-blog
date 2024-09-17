@@ -12,6 +12,16 @@ async function main() {
       copyright: "Next Blog, 2024",
     },
   });
+
+  await prisma.user.upsert({
+    where: { id: 1 },
+    update: {},
+    create: {
+      id: 1,
+      name: "admin",
+      password: "admin",
+    },
+  });
 }
 
 main()
