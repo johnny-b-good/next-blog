@@ -38,7 +38,7 @@ export const Button: FC<ButtonProps> = ({
           "border-slate-300 bg-white text-slate-700 hover:border-cyan-500 hover:text-cyan-500",
 
         variant === "text" &&
-          "border-transparent bg-transparent text-slate-700 hover:bg-white hover:bg-opacity-50 hover:text-cyan-500",
+          "border-transparent bg-transparent text-slate-700 shadow-none hover:bg-white hover:bg-opacity-50 hover:text-cyan-500",
 
         className,
       )}

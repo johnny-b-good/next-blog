@@ -1,6 +1,6 @@
 // Lib
 // -----------------------------------------------------------------------------
-import { CogIcon, DocumentIcon } from "@heroicons/react/24/outline";
+import { Cog6ToothIcon, DocumentIcon } from "@heroicons/react/24/outline";
 import type { Metadata } from "next";
 
 // App
@@ -19,7 +19,7 @@ export default async function AdminPage() {
         </LinkCard>
 
         <LinkCard url="/admin/settings">
-          <CogIcon className="h-8 w-8" />
+          <Cog6ToothIcon className="h-8 w-8" />
           Настройки
         </LinkCard>
       </div>

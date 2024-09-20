@@ -7,6 +7,9 @@ import { z } from "zod";
 import { getUser } from "./lib/queries";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  pages: {
+    signIn: "/login",
+  },
   providers: [
     Credentials({
       credentials: {
@@ -33,6 +36,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           // const passwordsMatch = await argon2.verify(user.password, password);
           // const passwordsMatch = await bcrypt.compare(password, user.password);
 
+          // TODO: Нельзя хранить пароли в незашифрованном виде,
+          // но у меня не получается заставить работать argon2 и bcrypt.
+          // Сейчас не критично, попробую еще, когда библиотеки зарелизятся.
           const passwordsMatch = user.password === password;
 
           if (passwordsMatch) {
@@ -44,4 +50,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
+
+  callbacks: {
+    async authorized({ auth, request: { nextUrl } }) {
+      const isLoggedIn = !!auth?.user;
+
+      const isOnDashboard = nextUrl.pathname.startsWith("/admin");
+
+      if (isOnDashboard) {
+        return isLoggedIn;
+      }
+
+      return true;
+    },
+  },
 });
