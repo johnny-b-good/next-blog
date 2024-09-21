@@ -8,5 +8,15 @@ const config: Config = {
     "./src/ui/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   plugins: [require("@tailwindcss/typography"), require("@tailwindcss/forms")],
+  theme: {
+    extend: {
+      backgroundImage: {
+        "pattern-endless-clouds": "url('/endless-clouds.svg')",
+        "pattern-morphing-diamonds": "url('/morphing-diamonds.svg')",
+        "pattern-parkay-floor": "url('/parkay-floor.svg')",
+        "pattern-wiggle": "url('/wiggle.svg')",
+      },
+    },
+  },
 };
 export default config;
