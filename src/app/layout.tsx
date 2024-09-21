@@ -17,7 +17,7 @@ export default async function RootLayout({
         <SiteHeader siteName={siteName} />
 
         <main>
-          <div className="mx-auto max-w-5xl px-4 py-8">{children}</div>
+          <div className="mx-auto max-w-4xl px-4 py-8">{children}</div>
         </main>
 
         <SiteFooter copyright={copyright} />
