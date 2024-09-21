@@ -29,3 +29,8 @@ export const SettingsSchema = z.object({
   siteName: z.string().min(1, "Обязательное поле"),
   copyright: z.string().min(1, "Обязательное поле"),
 });
+
+export const LoginSchema = z.object({
+  name: z.string().min(1, "Обязательное поле"),
+  password: z.string().min(1, "Обязательное поле"),
+});

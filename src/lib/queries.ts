@@ -62,3 +62,7 @@ export const getPost = async (id: number) => {
 export const getSettings = async () => {
   return await prisma.settings.findFirstOrThrow();
 };
+
+export const getUser = async (name: string) => {
+  return await prisma.user.findFirst({ where: { name } });
+};

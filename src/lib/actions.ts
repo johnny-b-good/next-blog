@@ -4,6 +4,7 @@
 // -----------------------------------------------------------------------------
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { AuthError } from "next-auth";
 
 // App
 // -----------------------------------------------------------------------------
@@ -11,8 +12,10 @@ import prisma from "@/lib/db";
 import {
   CreateBlogPostSchema,
   UpdateBlogPostSchema,
+  LoginSchema,
   SettingsSchema,
 } from "@/lib/schemas";
+import { signIn, signOut } from "@/auth";
 
 /** Состояние формы поста */
 export type BlogPostFormState = {
@@ -28,6 +31,15 @@ export type SettingsFormState = {
   errors?: {
     siteName?: string[];
     copyright?: string[];
+  };
+  message?: string | null;
+};
+
+/** Состояние формы логина */
+export type LoginFormState = {
+  errors?: {
+    name?: string[];
+    password?: string[];
   };
   message?: string | null;
 };
@@ -151,4 +163,42 @@ export const updateSettings = async (
 
   revalidatePath("/admin");
   redirect("/admin");
+};
+
+/** Залогиниться */
+export const login = async (
+  prevState: LoginFormState | undefined,
+  formData: FormData,
+) => {
+  const validatedFields = LoginSchema.safeParse({
+    name: formData.get("name"),
+    password: formData.get("password"),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Ошибка заполнения формы",
+    };
+  }
+
+  try {
+    await signIn("credentials", {
+      ...validatedFields.data,
+      redirectTo: "/admin",
+    });
+  } catch (error) {
+    if (error instanceof AuthError) {
+      if (error.type === "CredentialsSignin") {
+        return { message: "Неправильные логин или пароль" };
+      } else {
+        return { message: "Ошибка входа" };
+      }
+    }
+    throw error;
+  }
+};
+
+export const logout = async () => {
+  await signOut();
 };
