@@ -166,7 +166,10 @@ export const updateSettings = async (
 };
 
 /** Залогиниться */
-export const login = async (prevState: LoginFormState, formData: FormData) => {
+export const login = async (
+  prevState: LoginFormState | undefined,
+  formData: FormData,
+) => {
   const validatedFields = LoginSchema.safeParse({
     name: formData.get("name"),
     password: formData.get("password"),
@@ -180,7 +183,10 @@ export const login = async (prevState: LoginFormState, formData: FormData) => {
   }
 
   try {
-    await signIn("credentials", validatedFields.data);
+    await signIn("credentials", {
+      ...validatedFields.data,
+      redirectTo: "/admin",
+    });
   } catch (error) {
     if (error instanceof AuthError) {
       if (error.type === "CredentialsSignin") {
@@ -191,9 +197,6 @@ export const login = async (prevState: LoginFormState, formData: FormData) => {
     }
     throw error;
   }
-
-  revalidatePath("/admin");
-  redirect("/admin");
 };
 
 export const logout = async () => {

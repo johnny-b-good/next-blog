@@ -23,9 +23,9 @@ import { LoginFormState } from "@/lib/actions";
 // -----------------------------------------------------------------------------
 export interface LoginFormProps {
   action: (
-    previousState: LoginFormState,
+    previousState: LoginFormState | undefined,
     payload: FormData,
-  ) => Promise<LoginFormState>;
+  ) => Promise<LoginFormState | undefined>;
 }
 
 /** Blog post form component */
@@ -36,7 +36,7 @@ export const LoginForm: FC<LoginFormProps> = ({ action }) => {
 
   return (
     <form className="mx-auto flex max-w-md flex-col gap-4" action={formAction}>
-      {state.message && (
+      {state?.message && (
         <Alert status="error">
           <ExclamationCircleIcon className="h-6 w-6" />
           {state.message}
@@ -48,7 +48,7 @@ export const LoginForm: FC<LoginFormProps> = ({ action }) => {
 
         <Input name="name" />
 
-        <FieldError errors={state.errors?.name} />
+        <FieldError errors={state?.errors?.name} />
       </Field>
 
       <Field>
@@ -56,7 +56,7 @@ export const LoginForm: FC<LoginFormProps> = ({ action }) => {
 
         <PasswordInput name="password" />
 
-        <FieldError errors={state.errors?.password} />
+        <FieldError errors={state?.errors?.password} />
       </Field>
 
       <Button variant="primary" type="submit" className="self-center">
