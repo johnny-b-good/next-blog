@@ -12,7 +12,9 @@
     "docker-start": "docker compose -f compose.prod.yaml up -d",
     "docker-stop": "docker compose -f compose.prod.yaml down",
     "docker-prisma-migrate": "docker exec -it next-blog-app-dev npx prisma migrate",
-    "docker-prisma-reset": "docker exec -it next-blog-app-dev npx prisma reset"
+    "docker-prisma-reset": "docker exec -it next-blog-app-dev npx prisma reset",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "prisma": {
     "seed": "node prisma/seed.mjs"
@@ -38,6 +40,15 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^1.9.0",
+    "@storybook/addon-essentials": "^8.3.2",
+    "@storybook/addon-interactions": "^8.3.2",
+    "@storybook/addon-links": "^8.3.2",
+    "@storybook/addon-onboarding": "^8.3.2",
+    "@storybook/blocks": "^8.3.2",
+    "@storybook/nextjs": "^8.3.2",
+    "@storybook/react": "^8.3.2",
+    "@storybook/test": "^8.3.2",
     "@tailwindcss/forms": "^0.5.9",
     "@tailwindcss/typography": "^0.5.15",
     "@types/bcrypt": "^5.0.2",
@@ -49,9 +60,11 @@
     "@types/react-dom": "^18",
     "eslint": "^8",
     "eslint-config-next": "14.2.9",
+    "eslint-plugin-storybook": "^0.8.0",
     "postcss": "^8",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.6",
+    "storybook": "^8.3.2",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }
