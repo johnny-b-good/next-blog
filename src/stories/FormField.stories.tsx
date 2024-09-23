@@ -27,7 +27,7 @@ export const WithErrors: Story = {
   args: {
     label: "Form field label",
     description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    children: <Input placeholder="Placeholder" />,
+    children: <Input placeholder="Placeholder" invalid />,
     errors: ["Bad value", "Very bad value"],
   },
 };
