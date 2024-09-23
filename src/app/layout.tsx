@@ -13,7 +13,7 @@ export default async function RootLayout({
 
   return (
     <html className="min-h-screen bg-slate-50 text-slate-700">
-      <body className="bg-pattern-morphing-diamonds grid min-h-screen grid-rows-[min-content_1fr_min-content] items-stretch bg-fixed">
+      <body className="grid min-h-screen grid-rows-[min-content_1fr_min-content] items-stretch bg-pattern-morphing-diamonds bg-fixed">
         <SiteHeader siteName={siteName} />
 
         <main>

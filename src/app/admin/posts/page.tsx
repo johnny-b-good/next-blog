@@ -45,7 +45,7 @@ export default async function AdminPostsPage({
         <SearchInput placeholder="Поиск" />
 
         <LinkButton variant="primary" href="/admin/posts/create">
-          <PlusIcon className="h-6 w-6" /> Создать
+          <PlusIcon className="size-6" /> Создать
         </LinkButton>
 
         <LinkList

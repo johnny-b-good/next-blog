@@ -32,14 +32,14 @@ export const SiteHeader = async ({ siteName }: SiteHeaderProps) => {
         <div className="flex-grow"></div>
 
         <LinkButton href="/admin" variant="text">
-          <Cog6ToothIcon className="h-6 w-6" />
+          <Cog6ToothIcon className="size-6" />
           Админ
         </LinkButton>
 
         {session?.user && (
           <form action={logout}>
             <Button type="submit" variant="text">
-              <ArrowRightStartOnRectangleIcon className="h-6 w-6" />
+              <ArrowRightStartOnRectangleIcon className="size-6" />
               Выйти
             </Button>
           </form>

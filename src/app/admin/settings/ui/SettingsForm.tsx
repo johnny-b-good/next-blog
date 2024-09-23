@@ -9,15 +9,7 @@ import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 
 // App
 // -----------------------------------------------------------------------------
-import {
-  Field,
-  Button,
-  Label,
-  Input,
-  LinkButton,
-  FieldError,
-  Alert,
-} from "@/ui";
+import { Button, Input, LinkButton, Alert, FormField } from "@/ui";
 import { SettingsFormState } from "@/lib/actions";
 
 // Props
@@ -40,31 +32,21 @@ export const SettingsForm: FC<SettingsFormProps> = ({ action, settings }) => {
     <form className="flex flex-col gap-4" action={formAction}>
       {state.message && (
         <Alert status="error">
-          <ExclamationCircleIcon className="h-6 w-6" />
+          <ExclamationCircleIcon className="size-6" />
           {state.message}
         </Alert>
       )}
 
-      <Field>
-        <Label>Название сайта</Label>
-
+      <FormField label="Название сайта" errors={state.errors?.siteName}>
         <Input name="siteName" defaultValue={settings?.siteName} />
+      </FormField>
 
-        <FieldError errors={state.errors?.siteName} />
-      </Field>
-
-      <Field>
-        <Label>Копирайт</Label>
-
+      <FormField label="Копирайт" errors={state.errors?.copyright}>
         <Input name="copyright" defaultValue={settings?.copyright} />
-
-        <FieldError errors={state.errors?.copyright} />
-      </Field>
+      </FormField>
 
       <div className="flex justify-end gap-4">
-        <LinkButton variant="default" href="/admin">
-          Отмена
-        </LinkButton>
+        <LinkButton href="/admin">Отмена</LinkButton>
 
         <Button variant="primary" type="submit">
           Сохранить

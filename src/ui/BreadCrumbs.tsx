@@ -15,10 +15,11 @@ export const Breadcrumbs: FC<BreadcrumbsProps> = ({ className, parts }) => {
   return (
     <div className={clsx("flex flex-wrap gap-2", className)}>
       <Link href={"/"}>
-        <HomeIcon className="h-6 w-6" />
+        <HomeIcon className="size-6" />
       </Link>
 
       <span className="">/</span>
+
       {parts.map(({ text, url }, index) => (
         <Fragment key={text}>
           {url ? <Link href={url}>{text}</Link> : <span>{text}</span>}

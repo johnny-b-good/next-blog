@@ -9,16 +9,7 @@ import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 
 // App
 // -----------------------------------------------------------------------------
-import {
-  Field,
-  Textarea,
-  Button,
-  Label,
-  Input,
-  LinkButton,
-  FieldError,
-  Alert,
-} from "@/ui";
+import { Textarea, Button, Input, LinkButton, Alert, FormField } from "@/ui";
 import { BlogPostFormState } from "@/lib/actions";
 
 // Props
@@ -41,31 +32,21 @@ export const BlogPostForm: FC<BlogPostFormProps> = ({ action, blogPost }) => {
     <form className="flex flex-col gap-4" action={formAction}>
       {state.message && (
         <Alert status="error">
-          <ExclamationCircleIcon className="h-6 w-6" />
+          <ExclamationCircleIcon className="size-6" />
           {state.message}
         </Alert>
       )}
 
-      <Field>
-        <Label>Заголовок</Label>
-
+      <FormField label="Заголовок" errors={state.errors?.title}>
         <Input name="title" defaultValue={blogPost?.title} />
+      </FormField>
 
-        <FieldError errors={state.errors?.title} />
-      </Field>
-
-      <Field>
-        <Label>Контент</Label>
-
+      <FormField label="Контент" errors={state.errors?.content}>
         <Textarea name="content" defaultValue={blogPost?.content} rows={10} />
-
-        <FieldError errors={state.errors?.content} />
-      </Field>
+      </FormField>
 
       <div className="flex justify-end gap-4">
-        <LinkButton variant="default" href="/admin">
-          Отмена
-        </LinkButton>
+        <LinkButton href="/admin">Отмена</LinkButton>
 
         <Button variant="primary" type="submit">
           Сохранить

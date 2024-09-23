@@ -1,24 +1,24 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Button } from "@/ui";
+import { LinkButton } from "@/ui";
 
 const meta = {
-  title: "Components/Button",
-  component: Button,
+  title: "Components/LinkButton",
+  component: LinkButton,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
   argTypes: {},
-} satisfies Meta<typeof Button>;
+} satisfies Meta<typeof LinkButton>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    variant: "default",
     children: "Button",
+    href: "http://example.com",
   },
 };
 
@@ -26,6 +26,7 @@ export const Primary: Story = {
   args: {
     variant: "primary",
     children: "Button",
+    href: "http://example.com",
   },
 };
 
@@ -33,12 +34,6 @@ export const Text: Story = {
   args: {
     variant: "text",
     children: "Button",
-  },
-};
-
-export const Disabled: Story = {
-  args: {
-    disabled: true,
-    children: "Button",
+    href: "http://example.com",
   },
 };
