@@ -42,3 +42,19 @@ export const Disabled: Story = {
     children: "Button",
   },
 };
+
+export const PrimaryDisabled: Story = {
+  args: {
+    disabled: true,
+    variant: "primary",
+    children: "Button",
+  },
+};
+
+export const TextDisabled: Story = {
+  args: {
+    disabled: true,
+    variant: "text",
+    children: "Button",
+  },
+};
