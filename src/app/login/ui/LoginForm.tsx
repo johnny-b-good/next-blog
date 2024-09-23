@@ -36,11 +36,14 @@ export const LoginForm: FC<LoginFormProps> = ({ action }) => {
       )}
 
       <FormField label="Пользователь" errors={state?.errors?.name}>
-        <Input name="name" />
+        <Input name="name" invalid={Boolean(state?.errors?.name)} />
       </FormField>
 
       <FormField label="Пароль" errors={state?.errors?.password}>
-        <PasswordInput name="password" />
+        <PasswordInput
+          name="password"
+          invalid={Boolean(state?.errors?.password)}
+        />
       </FormField>
 
       <Button variant="primary" type="submit" className="self-center">

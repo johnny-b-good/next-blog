@@ -15,6 +15,7 @@ export type TextareaProps = HeadlessTextareaProps;
 export const Textarea: FC<TextareaProps> = ({
   className,
   children,
+
   ...props
 }) => {
   return (
@@ -22,6 +23,7 @@ export const Textarea: FC<TextareaProps> = ({
       className={clsx(
         "block w-full rounded border-slate-300 px-4 py-2 shadow-sm placeholder:text-slate-300",
         "focus:border-cyan-300 focus:ring focus:ring-cyan-200 focus:ring-opacity-50",
+        "data-[invalid]:border-red-300 data-[invalid]:focus:border-red-500 data-[invalid]:focus:ring-red-200",
         className,
       )}
       {...props}

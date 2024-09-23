@@ -38,11 +38,20 @@ export const BlogPostForm: FC<BlogPostFormProps> = ({ action, blogPost }) => {
       )}
 
       <FormField label="Заголовок" errors={state.errors?.title}>
-        <Input name="title" defaultValue={blogPost?.title} />
+        <Input
+          name="title"
+          defaultValue={blogPost?.title}
+          invalid={Boolean(state.errors?.title)}
+        />
       </FormField>
 
       <FormField label="Контент" errors={state.errors?.content}>
-        <Textarea name="content" defaultValue={blogPost?.content} rows={10} />
+        <Textarea
+          name="content"
+          defaultValue={blogPost?.content}
+          rows={10}
+          invalid={Boolean(state.errors?.content)}
+        />
       </FormField>
 
       <div className="flex justify-end gap-4">

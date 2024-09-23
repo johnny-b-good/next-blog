@@ -24,3 +24,14 @@ export const Default: Story = {
     ],
   },
 };
+
+export const Invalid: Story = {
+  args: {
+    options: [
+      { label: "Russia", value: "ru" },
+      { label: "Japan", value: "jp" },
+      { label: "China", value: "cn" },
+    ],
+    invalid: true,
+  },
+};

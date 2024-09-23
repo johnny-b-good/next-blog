@@ -38,11 +38,19 @@ export const SettingsForm: FC<SettingsFormProps> = ({ action, settings }) => {
       )}
 
       <FormField label="Название сайта" errors={state.errors?.siteName}>
-        <Input name="siteName" defaultValue={settings?.siteName} />
+        <Input
+          name="siteName"
+          defaultValue={settings?.siteName}
+          invalid={Boolean(state.errors?.siteName)}
+        />
       </FormField>
 
       <FormField label="Копирайт" errors={state.errors?.copyright}>
-        <Input name="copyright" defaultValue={settings?.copyright} />
+        <Input
+          name="copyright"
+          defaultValue={settings?.copyright}
+          invalid={Boolean(state.errors?.copyright)}
+        />
       </FormField>
 
       <div className="flex justify-end gap-4">

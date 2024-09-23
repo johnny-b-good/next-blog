@@ -26,3 +26,10 @@ export const WithValue: Story = {
     value: "Some value",
   },
 };
+
+export const Invalid: Story = {
+  args: {
+    value: "Bad value!",
+    invalid: true,
+  },
+};
