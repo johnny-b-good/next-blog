@@ -16,7 +16,7 @@ export const Alert: FC<AlertProps> = ({ status, children, className }) => {
   return (
     <div
       className={clsx(
-        "flex items-center gap-4 rounded border border-solid px-4 py-2 shadow-sm",
+        "flex items-center gap-4 rounded border px-4 py-2 shadow-sm",
 
         status === "success" && "border-green-300 bg-green-100 text-green-700",
 
