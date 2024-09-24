@@ -23,13 +23,13 @@ export const PasswordInput: FC<PasswordInputProps> = (props) => {
       <Input {...props} className="w-full pr-10" type={type} />
 
       <div
-        className="absolute right-2 top-1/2 h-6 w-6 -translate-y-1/2 cursor-pointer text-cyan-500 transition-colors hover:text-cyan-300"
+        className="absolute right-2 top-1/2 size-6 -translate-y-1/2 cursor-pointer text-cyan-500 transition-colors hover:text-cyan-300"
         onClick={() => {
           setType((prev) => (prev === "password" ? "text" : "password"));
         }}
       >
-        {type === "password" && <EyeIcon className="h-6 w-6" />}
-        {type === "text" && <EyeSlashIcon className="h-6 w-6" />}
+        {type === "password" && <EyeIcon className="size-6" />}
+        {type === "text" && <EyeSlashIcon className="size-6" />}
       </div>
     </div>
   );

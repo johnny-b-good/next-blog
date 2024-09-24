@@ -29,8 +29,7 @@ export const LinkList = <T extends { id: number }>({
             "flex cursor-pointer items-baseline gap-4 px-4 py-2 outline-none transition-colors hover:bg-cyan-50",
             "focus:border-cyan-300 focus:ring focus:ring-cyan-200 focus:ring-opacity-50",
 
-            index !== items.length - 1 &&
-              "border-b border-solid border-b-slate-300",
+            index !== items.length - 1 && "border-b border-b-slate-300",
 
             index === 0 && "rounded-t",
 

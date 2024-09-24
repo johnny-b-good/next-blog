@@ -8,6 +8,7 @@ import {
   Description,
 } from "@headlessui/react";
 import CSS from "csstype";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 
 // App
 // -----------------------------------------------------------------------------
@@ -36,41 +37,44 @@ export const Dialog: FC<DialogProps> = ({
   width,
 }) => {
   return (
-    <HeadlessDialog open={open} onClose={onCancel} className="relative z-50">
-      <div className="fixed inset-0 flex h-screen w-screen items-center justify-center bg-black bg-opacity-10 p-4">
-        <DialogPanel
-          className="max-w-xl space-y-4 rounded border bg-white px-8 py-6 text-sm shadow-xl"
-          style={{ width }}
-        >
-          {title && (
-            <DialogTitle className="text-lg font-bold">{title}</DialogTitle>
-          )}
+    <HeadlessDialog
+      open={open}
+      onClose={onCancel}
+      className="fixed inset-0 z-50 flex h-screen w-screen items-center justify-center bg-black bg-opacity-10 p-4 transition duration-300 ease-out data-[closed]:opacity-0"
+      transition
+    >
+      <DialogPanel
+        className="max-w-xl space-y-4 rounded border bg-white shadow-xl"
+        style={{ width }}
+      >
+        {title && (
+          <DialogTitle className="flex items-center rounded-t border-b border-b-slate-300 px-6 py-4 text-lg font-semibold">
+            {title}
 
+            <div className="flex-grow" />
+
+            <Button variant="icon" onClick={onCancel}>
+              <XMarkIcon className="size-6 flex-none" />
+            </Button>
+          </DialogTitle>
+        )}
+
+        <div className="px-6 py-4">
           {description && <Description>{description}</Description>}
 
           {children}
+        </div>
 
-          <div className="flex justify-end gap-4">
-            <Button
-              variant="default"
-              onClick={() => {
-                onCancel();
-              }}
-            >
-              Cancel
-            </Button>
+        <div className="flex justify-end gap-4 rounded-b border-t border-t-slate-300 bg-slate-100 px-6 py-4">
+          <Button variant="default" onClick={onCancel}>
+            Cancel
+          </Button>
 
-            <Button
-              variant="primary"
-              onClick={() => {
-                onOk();
-              }}
-            >
-              OK
-            </Button>
-          </div>
-        </DialogPanel>
-      </div>
+          <Button variant="primary" onClick={onOk}>
+            OK
+          </Button>
+        </div>
+      </DialogPanel>
     </HeadlessDialog>
   );
 };

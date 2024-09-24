@@ -8,7 +8,7 @@ import { useDebouncedCallback } from "use-debounce";
 
 // App
 // -----------------------------------------------------------------------------
-import { Input, InputProps } from "./Input";
+import { Input, InputProps } from "@/ui/Input";
 
 // Props
 // -----------------------------------------------------------------------------

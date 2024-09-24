@@ -5,15 +5,11 @@ import { Metadata } from "next";
 
 // App
 // -----------------------------------------------------------------------------
-import {
-  LinkButton,
-  SearchInput,
-  Pagination,
-  Breadcrumbs,
-  LinkList,
-} from "@/ui";
+import { LinkButton, Breadcrumbs } from "@/ui";
 import { getPaginatedFilteredPosts } from "@/lib/queries";
 import { formatDateTime } from "@/lib/utils";
+import { LinkList, SearchInput } from "./ui";
+import { Pagination } from "@/app/ui";
 
 export default async function AdminPostsPage({
   searchParams,
@@ -45,7 +41,7 @@ export default async function AdminPostsPage({
         <SearchInput placeholder="Поиск" />
 
         <LinkButton variant="primary" href="/admin/posts/create">
-          <PlusIcon className="h-6 w-6" /> Создать
+          <PlusIcon className="size-6" /> Создать
         </LinkButton>
 
         <LinkList

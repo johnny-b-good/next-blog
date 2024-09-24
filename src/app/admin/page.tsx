@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 
 // App
 // -----------------------------------------------------------------------------
-import { Breadcrumbs, LinkCard } from "@/ui";
+import { Breadcrumbs, LinkButton } from "@/ui";
 
 export default async function AdminPage() {
   return (
@@ -13,15 +13,15 @@ export default async function AdminPage() {
       <Breadcrumbs className="mb-8" parts={[{ text: "Администрирование" }]} />
 
       <div className="flex gap-8">
-        <LinkCard url="/admin/posts">
-          <DocumentIcon className="h-8 w-8" />
+        <LinkButton href="/admin/posts" className="px-16 py-12 text-2xl">
+          <DocumentIcon className="size-8" />
           Записи
-        </LinkCard>
+        </LinkButton>
 
-        <LinkCard url="/admin/settings">
-          <Cog6ToothIcon className="h-8 w-8" />
+        <LinkButton href="/admin/settings" className="px-16 py-12 text-2xl">
+          <Cog6ToothIcon className="size-8" />
           Настройки
-        </LinkCard>
+        </LinkButton>
       </div>
     </>
   );

@@ -8,15 +8,7 @@ import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 
 // App
 // -----------------------------------------------------------------------------
-import {
-  Field,
-  Button,
-  Label,
-  Input,
-  FieldError,
-  Alert,
-  PasswordInput,
-} from "@/ui";
+import { Button, Input, Alert, PasswordInput, FormField } from "@/ui";
 import { LoginFormState } from "@/lib/actions";
 
 // Props
@@ -38,26 +30,21 @@ export const LoginForm: FC<LoginFormProps> = ({ action }) => {
     <form className="mx-auto flex max-w-md flex-col gap-4" action={formAction}>
       {state?.message && (
         <Alert status="error">
-          <ExclamationCircleIcon className="h-6 w-6" />
+          <ExclamationCircleIcon className="size-6" />
           {state.message}
         </Alert>
       )}
 
-      <Field>
-        <Label>Пользователь</Label>
+      <FormField label="Пользователь" errors={state?.errors?.name}>
+        <Input name="name" invalid={Boolean(state?.errors?.name)} />
+      </FormField>
 
-        <Input name="name" />
-
-        <FieldError errors={state?.errors?.name} />
-      </Field>
-
-      <Field>
-        <Label>Пароль</Label>
-
-        <PasswordInput name="password" />
-
-        <FieldError errors={state?.errors?.password} />
-      </Field>
+      <FormField label="Пароль" errors={state?.errors?.password}>
+        <PasswordInput
+          name="password"
+          invalid={Boolean(state?.errors?.password)}
+        />
+      </FormField>
 
       <Button variant="primary" type="submit" className="self-center">
         Войти

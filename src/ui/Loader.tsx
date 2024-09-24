@@ -4,8 +4,8 @@ import { FC } from "react";
 
 /** Loader component */
 export const Loader: FC = () => {
-  const size = 32;
-  const strokeWidth = 4;
+  const size = 64;
+  const strokeWidth = 8;
 
   const CIRCLE_LENGTH = Math.PI * (size - strokeWidth);
   const SECTION_LENGTH = (2 / 3) * CIRCLE_LENGTH;
@@ -15,7 +15,7 @@ export const Loader: FC = () => {
       <svg
         viewBox={`0 0 ${size} ${size}`}
         xmlns="http://www.w3.org/2000/svg"
-        className="size-8 animate-spin"
+        className="size-16 animate-spin text-cyan-500"
       >
         <circle
           cx={size / 2}
@@ -39,7 +39,7 @@ export const Loader: FC = () => {
         />
       </svg>
 
-      <div className="text-sm">Loading...</div>
+      <div className="">Loading...</div>
     </div>
   );
 };
