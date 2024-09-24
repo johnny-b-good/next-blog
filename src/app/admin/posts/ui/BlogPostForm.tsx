@@ -49,7 +49,7 @@ export const BlogPostForm: FC<BlogPostFormProps> = ({ action, blogPost }) => {
         <Textarea
           name="content"
           defaultValue={blogPost?.content}
-          rows={10}
+          rows={15}
           invalid={Boolean(state.errors?.content)}
         />
       </FormField>

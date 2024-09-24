@@ -8,7 +8,11 @@ import { LoginForm } from "./ui";
 import { login } from "@/lib/actions";
 
 export default async function AdminSettingsPage() {
-  return <LoginForm action={login} />;
+  return (
+    <div className="mx-auto max-w-md rounded bg-white px-6 py-4 shadow">
+      <LoginForm action={login} />
+    </div>
+  );
 }
 
 export const metadata: Metadata = {

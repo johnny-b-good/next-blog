@@ -37,7 +37,7 @@ export default async function AdminPostsPage({
         ]}
       />
 
-      <div className="grid grid-cols-[1fr_min-content] grid-rows-[min-content_1fr] gap-4">
+      <div className="grid grid-cols-[1fr_min-content] grid-rows-[min-content_1fr] gap-x-4 gap-y-8">
         <SearchInput placeholder="Поиск" />
 
         <LinkButton variant="primary" href="/admin/posts/create">
@@ -50,7 +50,10 @@ export default async function AdminPostsPage({
           renderItem={(blogPost) => (
             <>
               {blogPost.title}
-              <span className="text-sm text-slate-500">
+
+              <div className="flex-1" />
+
+              <span className="flex-none text-sm text-slate-500">
                 {formatDateTime(blogPost.updatedAt)}
               </span>
             </>

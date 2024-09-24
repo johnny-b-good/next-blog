@@ -12,14 +12,14 @@ export default async function AdminPage() {
     <>
       <Breadcrumbs className="mb-8" parts={[{ text: "Администрирование" }]} />
 
-      <div className="flex gap-8">
-        <LinkButton href="/admin/posts" className="px-16 py-12 text-2xl">
-          <DocumentIcon className="size-8" />
+      <div className="flex gap-4">
+        <LinkButton href="/admin/posts">
+          <DocumentIcon className="size-6" />
           Записи
         </LinkButton>
 
-        <LinkButton href="/admin/settings" className="px-16 py-12 text-2xl">
-          <Cog6ToothIcon className="size-8" />
+        <LinkButton href="/admin/settings">
+          <Cog6ToothIcon className="size-6" />
           Настройки
         </LinkButton>
       </div>

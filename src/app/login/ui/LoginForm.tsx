@@ -27,7 +27,7 @@ export const LoginForm: FC<LoginFormProps> = ({ action }) => {
   const [state, formAction] = useFormState(action, initialState);
 
   return (
-    <form className="mx-auto flex max-w-md flex-col gap-4" action={formAction}>
+    <form className="flex flex-col gap-4" action={formAction}>
       {state?.message && (
         <Alert status="error">
           <ExclamationCircleIcon className="size-6" />
