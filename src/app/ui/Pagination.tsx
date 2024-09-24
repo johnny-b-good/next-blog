@@ -3,8 +3,7 @@
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import { useSearchParams, usePathname } from "next/navigation";
 
-import { Button } from "./Button";
-import { LinkButton } from "./LinkButton";
+import { Button, LinkButton } from "@/ui";
 
 export const Pagination = ({ totalPages }: { totalPages: number }) => {
   const pathname = usePathname();

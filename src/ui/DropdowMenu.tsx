@@ -1,22 +1,22 @@
+"use client";
+
 // Lib
 // -----------------------------------------------------------------------------
-import { FC, ReactNode } from "react";
-import { Button } from "@headlessui/react";
-import {
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItems,
-  Transition,
-} from "@headlessui/react";
-import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
+import { ReactNode } from "react";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import { EllipsisHorizontalIcon, Bars3Icon } from "@heroicons/react/24/outline";
+import { clsx } from "clsx";
+
+// App
+// -----------------------------------------------------------------------------
+import { Button } from "./Button";
 
 // Types
 // -----------------------------------------------------------------------------
 interface DropdownMenuItem {
-  label: string;
+  key: number | string;
+  label: ReactNode;
   icon?: ReactNode;
-  onClick: () => void;
   disabled?: boolean;
 }
 
@@ -24,44 +24,60 @@ interface DropdownMenuItem {
 // -----------------------------------------------------------------------------
 export interface DropdownMenuProps {
   items: DropdownMenuItem[];
+  onClick?: (key: number | string) => void;
+  variant?: "dots" | "burger";
 }
 
 /** Dropdown menu component */
-export const DropdownMenu: FC<DropdownMenuProps> = ({ items }) => {
+export const DropdownMenu = ({
+  items,
+  onClick,
+  variant = "dots",
+}: DropdownMenuProps) => {
+  const menuItemsHasIcons = items.findIndex((item) => item.icon) !== -1;
+
   return (
     <Menu>
-      <MenuButton className="inline-flex rounded bg-transparent p-1 text-slate-700 data-[hover]:bg-white data-[open]:bg-white data-[hover]:bg-opacity-50 data-[open]:bg-opacity-50 data-[hover]:text-cyan-500 data-[open]:text-cyan-500">
-        <EllipsisHorizontalIcon className="size-6" />
+      <MenuButton as={Button} variant="icon">
+        {variant === "dots" ? (
+          <EllipsisHorizontalIcon className="size-6" />
+        ) : (
+          <Bars3Icon className="size-6" />
+        )}
       </MenuButton>
 
-      <Transition
-        enter="transition ease-out duration-75"
-        enterFrom="opacity-0 scale-95"
-        enterTo="opacity-100 scale-100"
-        leave="transition ease-in duration-100"
-        leaveFrom="opacity-100 scale-100"
-        leaveTo="opacity-0 scale-95"
+      <MenuItems
+        anchor="bottom end"
+        className={clsx(
+          "flex origin-top flex-col gap-2 rounded bg-white p-2 shadow-lg transition duration-200 ease-out",
+          "data-[closed]:scale-95 data-[closed]:opacity-0",
+        )}
+        transition
       >
-        <MenuItems
-          anchor="bottom end"
-          className="rounded bg-white p-1 text-sm shadow-lg"
-        >
-          {items.map((item) => {
-            return (
-              <MenuItem key={item.label}>
-                <Button
-                  className="inline-flex items-center gap-2 rounded bg-transparent px-2 py-1 text-slate-700 hover:text-cyan-500"
-                  onClick={item.onClick}
-                  disabled={item.disabled}
-                >
-                  {item.icon}
-                  {item.label}
-                </Button>
-              </MenuItem>
-            );
-          })}
-        </MenuItems>
-      </Transition>
+        {items.map((item) => {
+          return (
+            <MenuItem key={item.key} disabled={item.disabled}>
+              <div
+                className={clsx(
+                  "inline-flex cursor-pointer items-center gap-2 whitespace-nowrap rounded bg-transparent px-2 py-1 text-slate-700",
+                  "hover:bg-cyan-50 hover:text-cyan-500",
+                  "data-[disabled]:cursor-not-allowed data-[disabled]:text-slate-300",
+                  "data-[disabled]:hover:bg-white data-[disabled]:hover:text-slate-300",
+                )}
+                onClick={() => {
+                  onClick && onClick(item.key);
+                }}
+              >
+                {menuItemsHasIcons && (
+                  <div className="size-6 flex-none">{item.icon}</div>
+                )}
+
+                {item.label}
+              </div>
+            </MenuItem>
+          );
+        })}
+      </MenuItems>
     </Menu>
   );
 };

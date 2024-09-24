@@ -7,8 +7,6 @@ export * from "./Input";
 export * from "./Link";
 export * from "./LinkButton";
 export * from "./Loader";
-export * from "./Pagination";
-export * from "./SearchInput";
 export * from "./Select";
 export * from "./Textarea";
 export * from "./PasswordInput";
