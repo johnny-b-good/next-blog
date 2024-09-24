@@ -5,15 +5,10 @@ import { Metadata } from "next";
 
 // App
 // -----------------------------------------------------------------------------
-import {
-  LinkButton,
-  SearchInput,
-  Pagination,
-  Breadcrumbs,
-  LinkList,
-} from "@/ui";
+import { LinkButton, SearchInput, Pagination, Breadcrumbs } from "@/ui";
 import { getPaginatedFilteredPosts } from "@/lib/queries";
 import { formatDateTime } from "@/lib/utils";
+import { LinkList } from "./ui";
 
 export default async function AdminPostsPage({
   searchParams,
