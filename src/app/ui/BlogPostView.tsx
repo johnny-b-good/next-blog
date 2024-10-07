@@ -36,7 +36,7 @@ export const BlogPostView: FC<BlogPostViewProps> = async ({ blogPost }) => {
 
   return (
     <article className="rounded bg-white shadow">
-      <h2 className="flex border-b border-b-slate-300 px-6 py-4 align-baseline">
+      <h2 className="flex items-baseline border-b border-b-slate-300 px-6 py-4">
         <Link
           href={`/posts/${blogPost.id}`}
           className="text-xl font-semibold no-underline"

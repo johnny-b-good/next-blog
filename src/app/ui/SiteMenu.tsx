@@ -6,20 +6,12 @@ import {
   ArrowRightStartOnRectangleIcon,
   Cog6ToothIcon,
 } from "@heroicons/react/24/outline";
-import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 
 // App
 // -----------------------------------------------------------------------------
-import {
-  Link,
-  Button,
-  LinkButton,
-  DropdownMenu,
-  DropdownMenuProps,
-} from "@/ui";
+import { DropdownMenu, DropdownMenuProps } from "@/ui";
 import { logout } from "@/lib/actions";
-import { auth } from "@/auth";
 
 // Props
 // -----------------------------------------------------------------------------
