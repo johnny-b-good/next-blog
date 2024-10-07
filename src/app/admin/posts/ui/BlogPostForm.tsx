@@ -51,6 +51,7 @@ export const BlogPostForm: FC<BlogPostFormProps> = ({ action, blogPost }) => {
           defaultValue={blogPost?.content}
           rows={15}
           invalid={Boolean(state.errors?.content)}
+          className="font-mono text-sm"
         />
       </FormField>
 
