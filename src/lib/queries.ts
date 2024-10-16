@@ -2,7 +2,7 @@
 // -----------------------------------------------------------------------------
 import prisma from "@/lib/db";
 
-export const getPaginatedPosts = async (currentPage: number) => {
+export const getPostsForVisitors = async (currentPage: number) => {
   const itemsPerPage = 10;
   const offset = (currentPage - 1) * itemsPerPage;
 
@@ -11,6 +11,9 @@ export const getPaginatedPosts = async (currentPage: number) => {
     take: itemsPerPage,
     orderBy: {
       updatedAt: "desc",
+    },
+    where: {
+      isPublished: true,
     },
   });
 
@@ -21,10 +24,7 @@ export const getPaginatedPosts = async (currentPage: number) => {
   return { blogPosts, blogPostsPages, blogPostsCount };
 };
 
-export const getPaginatedFilteredPosts = async (
-  currentPage: number,
-  query?: string,
-) => {
+export const getPostsForAdmin = async (currentPage: number, query?: string) => {
   const itemsPerPage = 20;
   const offset = (currentPage - 1) * itemsPerPage;
 
@@ -33,6 +33,7 @@ export const getPaginatedFilteredPosts = async (
       id: true,
       title: true,
       updatedAt: true,
+      isPublished: true,
     },
     where: {
       OR: [{ title: { contains: query } }, { content: { contains: query } }],

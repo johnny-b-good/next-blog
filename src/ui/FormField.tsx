@@ -1,6 +1,6 @@
 // Lib
 // -----------------------------------------------------------------------------
-import { FC, ReactNode } from "react";
+import { FC, Fragment, ReactNode } from "react";
 import { Field, Label, Description } from "@headlessui/react";
 import { clsx } from "clsx";
 
@@ -10,6 +10,7 @@ export type FormFieldProps = {
   label?: ReactNode;
   description?: ReactNode;
   errors?: Array<string>;
+  labelPosition?: "top" | "right";
 };
 
 /** Field component */
@@ -19,18 +20,37 @@ export const FormField: FC<FormFieldProps> = ({
   label,
   description,
   errors = [],
+  labelPosition = "top",
 }) => {
   return (
     <Field className={clsx("flex flex-col gap-2", className)}>
-      {label && <Label className="font-semibold">{label}</Label>}
+      {labelPosition === "top" ? (
+        <Fragment>
+          {label && <Label className="font-semibold">{label}</Label>}
 
-      {description && (
-        <Description className="text-sm text-slate-500">
-          {description}
-        </Description>
+          {description && (
+            <Description className="text-sm text-slate-500">
+              {description}
+            </Description>
+          )}
+
+          {children}
+        </Fragment>
+      ) : (
+        <Fragment>
+          <div className="flex gap-2">
+            {children}
+
+            {label && <Label>{label}</Label>}
+          </div>
+
+          {description && (
+            <Description className="text-sm text-slate-500">
+              {description}
+            </Description>
+          )}
+        </Fragment>
       )}
-
-      {children}
 
       {errors.length > 0 ? (
         <Description className="text-sm text-red-500">

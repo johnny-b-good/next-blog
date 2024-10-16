@@ -22,7 +22,7 @@ export const LinkList = <T extends { id: number }>({
 }: LinkListProps<T>) => {
   return (
     <div className={clsx("border-t border-t-slate-300", className)}>
-      {items.map((item, index) => (
+      {items.map((item) => (
         <Link
           href={makeUrl(item)}
           className={clsx(

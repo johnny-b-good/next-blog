@@ -9,7 +9,15 @@ import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 
 // App
 // -----------------------------------------------------------------------------
-import { Textarea, Button, Input, LinkButton, Alert, FormField } from "@/ui";
+import {
+  Textarea,
+  Button,
+  Input,
+  LinkButton,
+  Alert,
+  FormField,
+  Checkbox,
+} from "@/ui";
 import { BlogPostFormState } from "@/lib/actions";
 
 // Props
@@ -55,8 +63,16 @@ export const BlogPostForm: FC<BlogPostFormProps> = ({ action, blogPost }) => {
         />
       </FormField>
 
+      <FormField
+        label="Опубликовано"
+        errors={state.errors?.isPublished}
+        labelPosition="right"
+      >
+        <Checkbox name="isPublished" defaultChecked={blogPost?.isPublished} />
+      </FormField>
+
       <div className="flex justify-end gap-4">
-        <LinkButton href="/admin">Отмена</LinkButton>
+        <LinkButton href="/admin/posts">Отмена</LinkButton>
 
         <Button variant="primary" type="submit">
           Сохранить
