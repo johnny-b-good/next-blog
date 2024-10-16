@@ -22,6 +22,7 @@ export type BlogPostFormState = {
   errors?: {
     title?: string[];
     content?: string[];
+    isPublished?: string[];
   };
   message?: string | null;
 };
@@ -52,6 +53,7 @@ export const createBlogPost = async (
   const validatedFields = CreateBlogPostSchema.safeParse({
     title: formData.get("title"),
     content: formData.get("content"),
+    isPublished: formData.get("isPublished"),
   });
 
   if (!validatedFields.success) {
@@ -61,13 +63,14 @@ export const createBlogPost = async (
     };
   }
 
-  const { title, content } = validatedFields.data;
+  const { title, content, isPublished } = validatedFields.data;
 
   try {
     await prisma.blogPost.create({
       data: {
         title,
         content,
+        isPublished,
       },
     });
   } catch {
@@ -87,6 +90,7 @@ export const updateBlogPost = async (
   const validatedFields = UpdateBlogPostSchema.safeParse({
     title: formData.get("title"),
     content: formData.get("content"),
+    isPublished: formData.get("isPublished"),
   });
 
   if (!validatedFields.success) {
@@ -96,7 +100,7 @@ export const updateBlogPost = async (
     };
   }
 
-  const { title, content } = validatedFields.data;
+  const { title, content, isPublished } = validatedFields.data;
 
   try {
     await prisma.blogPost.update({
@@ -106,6 +110,7 @@ export const updateBlogPost = async (
       data: {
         title,
         content,
+        isPublished,
       },
     });
   } catch {

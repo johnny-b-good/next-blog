@@ -1,12 +1,16 @@
 // Lib
 // -----------------------------------------------------------------------------
-import { PlusIcon } from "@heroicons/react/24/solid";
+import {
+  PlusIcon,
+  CheckCircleIcon,
+  XCircleIcon,
+} from "@heroicons/react/24/outline";
 import { Metadata } from "next";
 
 // App
 // -----------------------------------------------------------------------------
 import { LinkButton, Breadcrumbs } from "@/ui";
-import { getPaginatedFilteredPosts } from "@/lib/queries";
+import { getPostsForAdmin } from "@/lib/queries";
 import { formatDateTime } from "@/lib/utils";
 import { LinkList, SearchInput } from "./ui";
 import { Pagination } from "@/app/ui";
@@ -22,7 +26,7 @@ export default async function AdminPostsPage({
   const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
 
-  const { blogPosts, blogPostsPages } = await getPaginatedFilteredPosts(
+  const { blogPosts, blogPostsPages } = await getPostsForAdmin(
     currentPage,
     query,
   );
@@ -49,6 +53,18 @@ export default async function AdminPostsPage({
           items={blogPosts}
           renderItem={(blogPost) => (
             <>
+              {blogPost.isPublished ? (
+                <CheckCircleIcon
+                  className="size-6 flex-none self-center text-cyan-500"
+                  title="Опубликовано"
+                />
+              ) : (
+                <XCircleIcon
+                  className="size-6 flex-none self-center text-slate-300"
+                  title="Не опубликовано"
+                />
+              )}
+
               {blogPost.title}
 
               <div className="flex-1" />

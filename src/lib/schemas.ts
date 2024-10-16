@@ -7,6 +7,7 @@ export const BlogPostSchema = z.object({
   id: z.number(),
   title: z.string().min(1, "Обязательное поле"),
   content: z.string().min(1, "Обязательное поле"),
+  isPublished: z.coerce.boolean(),
   createdAt: z.date(),
   updatedAt: z.date(),
 });

@@ -1,6 +1,6 @@
 // App
 // ---------------------------------------------------------------------------
-import { getPaginatedPosts } from "@/lib/queries";
+import { getPostsForVisitors } from "@/lib/queries";
 import { BlogPostView, Pagination } from "@/app/ui";
 
 export default async function HomePage({
@@ -12,7 +12,7 @@ export default async function HomePage({
 }) {
   const currentPage = Number(searchParams?.page) || 1;
 
-  const { blogPosts, blogPostsPages } = await getPaginatedPosts(currentPage);
+  const { blogPosts, blogPostsPages } = await getPostsForVisitors(currentPage);
 
   return (
     <section className="grid grid-cols-1 gap-4">
