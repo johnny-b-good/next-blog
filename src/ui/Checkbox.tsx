@@ -1,30 +1,27 @@
 // Lib
 // -----------------------------------------------------------------------------
-import { InputHTMLAttributes, ReactNode } from "react";
+import {
+  Checkbox as HeadlessCheckbox,
+  CheckboxProps as HeadlessCheckboxProps,
+} from "@headlessui/react";
+import { CheckIcon } from "@heroicons/react/24/solid";
 import { clsx } from "clsx";
 
-// Props
-// -----------------------------------------------------------------------------
-export type CheckboxProps = InputHTMLAttributes<HTMLInputElement> & {
-  label?: ReactNode;
-};
-
 /** Checkbox component */
-export const Checkbox = ({
-  className,
-  ...props
-}: InputHTMLAttributes<HTMLInputElement>) => {
+export const Checkbox = ({ className, ...props }: HeadlessCheckboxProps) => {
   return (
-    <input
-      type="checkbox"
+    <HeadlessCheckbox
       className={clsx(
-        "size-6 cursor-pointer rounded border border-slate-300 bg-white shadow-sm outline-none transition-colors",
-        "checked:border-cyan-600 checked:text-cyan-500",
-        "checked:hover:border-cyan-500 checked:hover:bg-cyan-400",
-        "focus:border-cyan-300 focus:ring focus:ring-cyan-200 focus:ring-opacity-50 focus:ring-offset-0",
+        "group inline-flex size-6 cursor-pointer items-center rounded border border-slate-300 bg-white text-cyan-500 shadow-sm outline-none transition-colors",
+        "data-[focus]:border-cyan-300 data-[focus]:ring data-[focus]:ring-cyan-200 data-[focus]:ring-opacity-50 data-[focus]:ring-offset-0",
         className,
       )}
       {...props}
-    />
+    >
+      <CheckIcon
+        className="stoke-2 size-6 opacity-0 transition group-data-[checked]:opacity-100"
+        strokeWidth={2}
+      />
+    </HeadlessCheckbox>
   );
 };
