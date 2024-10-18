@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { FormField, Input } from "@/ui";
+import { FormField, Input, Checkbox } from "@/ui";
 
 const meta = {
   title: "Components/FormField",
@@ -29,5 +29,14 @@ export const WithErrors: Story = {
     description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
     children: <Input placeholder="Placeholder" invalid />,
     errors: ["Bad value", "Very bad value"],
+  },
+};
+
+export const WithCheckbox: Story = {
+  args: {
+    label: "Form field label",
+    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
+    children: <Checkbox />,
+    labelPosition: "right",
   },
 };
