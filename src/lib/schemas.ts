@@ -8,6 +8,7 @@ export const BlogPostSchema = z.object({
   title: z.string().min(1, "Обязательное поле"),
   content: z.string().min(1, "Обязательное поле"),
   isPublished: z.coerce.boolean(),
+  files: z.optional(z.array(z.instanceof(File))), // TODO: file size, type and num
   createdAt: z.date(),
   updatedAt: z.date(),
 });

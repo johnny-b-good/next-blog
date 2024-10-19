@@ -14,12 +14,13 @@ datasource db {
 }
 
 model BlogPost {
-  id          Int      @id @default(autoincrement())
+  id          Int             @id @default(autoincrement())
   title       String
   content     String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  isPublished Boolean  @default(true)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  isPublished Boolean         @default(true)
+  images      BlogPostImage[]
 }
 
 model Settings {
@@ -32,4 +33,18 @@ model User {
   id       Int    @id @default(autoincrement())
   name     String
   password String
+}
+
+model BlogPostImage {
+  id              Int      @id @default(autoincrement())
+  post            BlogPost @relation(fields: [postId], references: [id])
+  postId          Int
+  originalWidth   Int
+  originalHeight  Int
+  originalName    String
+  originalType    String
+  thumbnailWidth  Int
+  thumbnailHeight Int
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }

@@ -17,6 +17,7 @@ import {
   Alert,
   FormField,
   Checkbox,
+  Dropzone,
 } from "@/ui";
 import { BlogPostFormState } from "@/lib/actions";
 
@@ -69,6 +70,10 @@ export const BlogPostForm: FC<BlogPostFormProps> = ({ action, blogPost }) => {
         labelPosition="right"
       >
         <Checkbox name="isPublished" defaultChecked={blogPost?.isPublished} />
+      </FormField>
+
+      <FormField label="Файлы">
+        <Dropzone name="files" />
       </FormField>
 
       <div className="flex justify-end gap-4">
