@@ -54,6 +54,7 @@ export const createBlogPost = async (
     title: formData.get("title"),
     content: formData.get("content"),
     isPublished: formData.get("isPublished"),
+    files: formData.getAll("files"),
   });
 
   if (!validatedFields.success) {
@@ -63,7 +64,7 @@ export const createBlogPost = async (
     };
   }
 
-  const { title, content, isPublished } = validatedFields.data;
+  const { title, content, isPublished, files } = validatedFields.data;
 
   try {
     await prisma.blogPost.create({
@@ -91,6 +92,7 @@ export const updateBlogPost = async (
     title: formData.get("title"),
     content: formData.get("content"),
     isPublished: formData.get("isPublished"),
+    files: formData.getAll("files"),
   });
 
   if (!validatedFields.success) {
@@ -100,7 +102,7 @@ export const updateBlogPost = async (
     };
   }
 
-  const { title, content, isPublished } = validatedFields.data;
+  const { title, content, isPublished, files } = validatedFields.data;
 
   try {
     await prisma.blogPost.update({

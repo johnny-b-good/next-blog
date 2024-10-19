@@ -12,3 +12,4 @@ export * from "./Textarea";
 export * from "./PasswordInput";
 export * from "./FormField";
 export * from "./Checkbox";
+export * from "./Dropzone";
