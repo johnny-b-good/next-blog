@@ -16,6 +16,7 @@ import {
   SettingsSchema,
 } from "@/lib/schemas";
 import { signIn, signOut } from "@/auth";
+import { saveUploadedFiles } from "@/lib/utils";
 
 /** Состояние формы поста */
 export type BlogPostFormState = {
@@ -67,13 +68,17 @@ export const createBlogPost = async (
   const { title, content, isPublished, files } = validatedFields.data;
 
   try {
-    await prisma.blogPost.create({
+    const blogPost = await prisma.blogPost.create({
       data: {
         title,
         content,
         isPublished,
       },
     });
+
+    if (files) {
+      await saveUploadedFiles(blogPost.id, files);
+    }
   } catch {
     return { message: "Ошибка создания поста" };
   }
@@ -105,7 +110,7 @@ export const updateBlogPost = async (
   const { title, content, isPublished, files } = validatedFields.data;
 
   try {
-    await prisma.blogPost.update({
+    const blogPost = await prisma.blogPost.update({
       where: {
         id,
       },
@@ -115,6 +120,10 @@ export const updateBlogPost = async (
         isPublished,
       },
     });
+
+    if (files) {
+      await saveUploadedFiles(blogPost.id, files);
+    }
   } catch {
     return { message: "Ошибка обновления поста" };
   }

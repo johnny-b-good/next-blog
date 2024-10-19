@@ -61,7 +61,7 @@ export const Dropzone = ({
 
         <ArrowUpOnSquareIcon className="size-12 text-cyan-500" />
 
-        <div>Drop some files here, or click to select files</div>
+        <div>Перетащите файлы сюда или нажмите для выбора файлов</div>
       </div>
 
       {acceptedFiles.length > 0 && (
