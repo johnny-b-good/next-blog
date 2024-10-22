@@ -57,7 +57,7 @@ export const Dropzone = ({
           ref={hiddenInputRef}
         />
 
-        <input name={name} {...getInputProps()} />
+        <input {...getInputProps()} />
 
         <ArrowUpOnSquareIcon className="size-12 text-cyan-500" />
 

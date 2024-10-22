@@ -1,10 +1,16 @@
 // Lib
 // -----------------------------------------------------------------------------
 import fs from "node:fs/promises";
+import path from "node:path";
 import prisma from "@/lib/db";
 import sharp from "sharp";
 import dayjs from "dayjs";
 import "dayjs/locale/ru";
+import { v4 as uuidv4 } from "uuid";
+
+// App
+// -----------------------------------------------------------------------------
+import { THUMBNAIL_DIMENSIONS, THUMBNAIL_FORMAT } from "@/lib/consts";
 
 dayjs.locale("ru");
 
@@ -12,20 +18,33 @@ export const formatDateTime = (date: Date): string =>
   dayjs(date).format("DD MMM YYYY, HH:mm");
 
 export const saveUploadedFiles = async (postId: number, files: Array<File>) => {
-  for (const file of files) {
-    const fileArrayBuffer = await file.arrayBuffer();
-    const fileBuffer = await Buffer.from(fileArrayBuffer);
+  const uploadsDirPath = path.join(process.cwd(), "public", "uploads");
+  await fs.mkdir(uploadsDirPath, { recursive: true });
 
-    const image = sharp(fileBuffer);
+  for (const file of files) {
+    if (file.size === 0) {
+      continue;
+    }
+
+    const imageArrayBuffer = await file.arrayBuffer();
+    const imageBuffer = await Buffer.from(imageArrayBuffer);
+
+    const image = sharp(imageBuffer);
     const imageMetadata = await image.metadata();
 
-    const thumbnail = image.resize(800, 600);
+    const thumbnail = image.resize(...THUMBNAIL_DIMENSIONS);
     const thumbnailMetadata = await thumbnail.metadata();
+    const thumbnailBuffer = await thumbnail
+      .toFormat(THUMBNAIL_FORMAT)
+      .toBuffer();
+
+    const newImageName = uuidv4();
 
     await prisma.$transaction(async (tx) => {
-      const blogPostImage = await tx.blogPostImage.create({
+      await tx.blogPostImage.create({
         data: {
           postId,
+          name: newImageName,
           originalWidth: imageMetadata.width ?? 0,
           originalHeight: imageMetadata.height ?? 0,
           originalName: file.name,
@@ -35,15 +54,28 @@ export const saveUploadedFiles = async (postId: number, files: Array<File>) => {
         },
       });
 
-      await fs.writeFile(
-        `uploads/images/${postId}/${blogPostImage.id}.${imageMetadata.format}`,
-        fileBuffer,
-      );
+      const postUploadsDirPath = path.join(uploadsDirPath, postId.toString());
+      await fs.mkdir(postUploadsDirPath, { recursive: true });
 
-      await fs.writeFile(
-        `uploads/thumbnails/${postId}/${blogPostImage.id}.png`,
-        await thumbnail.toFormat("png").toBuffer(),
+      const imageFilePath = path.join(
+        postUploadsDirPath,
+        `${newImageName}.${imageMetadata.format}`,
       );
+      await fs.writeFile(imageFilePath, imageBuffer);
+
+      const thumbnailFilePath = path.join(
+        postUploadsDirPath,
+        `${newImageName}__thumb.${THUMBNAIL_FORMAT}`,
+      );
+      await fs.writeFile(thumbnailFilePath, thumbnailBuffer);
     });
+  }
+};
+
+export const logError = (err: unknown) => {
+  if (typeof err === "string") {
+    console.error(err);
+  } else if (err instanceof Error) {
+    console.error(err.message);
   }
 };

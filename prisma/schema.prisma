@@ -39,6 +39,7 @@ model BlogPostImage {
   id              Int      @id @default(autoincrement())
   post            BlogPost @relation(fields: [postId], references: [id])
   postId          Int
+  name            String
   originalWidth   Int
   originalHeight  Int
   originalName    String
@@ -47,4 +48,6 @@ model BlogPostImage {
   thumbnailHeight Int
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+
+  @@unique([postId, name])
 }

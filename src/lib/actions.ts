@@ -16,7 +16,7 @@ import {
   SettingsSchema,
 } from "@/lib/schemas";
 import { signIn, signOut } from "@/auth";
-import { saveUploadedFiles } from "@/lib/utils";
+import { saveUploadedFiles, logError } from "@/lib/utils";
 
 /** Состояние формы поста */
 export type BlogPostFormState = {
@@ -79,7 +79,8 @@ export const createBlogPost = async (
     if (files) {
       await saveUploadedFiles(blogPost.id, files);
     }
-  } catch {
+  } catch (err) {
+    logError(err);
     return { message: "Ошибка создания поста" };
   }
 
@@ -124,7 +125,8 @@ export const updateBlogPost = async (
     if (files) {
       await saveUploadedFiles(blogPost.id, files);
     }
-  } catch {
+  } catch (err) {
+    logError(err);
     return { message: "Ошибка обновления поста" };
   }
 
@@ -136,7 +138,8 @@ export const updateBlogPost = async (
 export const deleteBlogPost = async (id: number) => {
   try {
     await prisma.blogPost.delete({ where: { id } });
-  } catch {
+  } catch (err) {
+    logError(err);
     message: "Ошибка удаления поста";
   }
 
@@ -173,7 +176,8 @@ export const updateSettings = async (
         copyright,
       },
     });
-  } catch {
+  } catch (err) {
+    logError(err);
     return { message: "Ошибка обновления настроек" };
   }
 
@@ -204,6 +208,8 @@ export const login = async (
       redirectTo: "/admin",
     });
   } catch (error) {
+    logError(error);
+
     if (error instanceof AuthError) {
       if (error.type === "CredentialsSignin") {
         return { message: "Неправильные логин или пароль" };
@@ -211,6 +217,7 @@ export const login = async (
         return { message: "Ошибка входа" };
       }
     }
+
     throw error;
   }
 };
