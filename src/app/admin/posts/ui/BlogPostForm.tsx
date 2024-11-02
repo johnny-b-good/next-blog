@@ -20,6 +20,10 @@ import {
   Dropzone,
 } from "@/ui";
 import { BlogPostFormState } from "@/lib/actions";
+import {
+  MAX_FILE_SIZE,
+  ACCEPTED_FILE_TYPES_WITH_EXTENSIONS,
+} from "@/lib/consts";
 
 // Props
 // -----------------------------------------------------------------------------
@@ -78,7 +82,13 @@ export const BlogPostForm: FC<BlogPostFormProps> = ({
       </FormField>
 
       <FormField label="Загрузить файлы">
-        <Dropzone name="files" />
+        <Dropzone
+          name="files"
+          dropzoneOptions={{
+            accept: ACCEPTED_FILE_TYPES_WITH_EXTENSIONS,
+            maxSize: MAX_FILE_SIZE,
+          }}
+        />
       </FormField>
 
       {children}
