@@ -19,7 +19,7 @@ export const formatDateTime = (date: Date): string =>
   dayjs(date).format("DD MMM YYYY, HH:mm");
 
 export const saveUploadedFiles = async (postId: number, files: Array<File>) => {
-  const uploadsDirPath = path.join(process.cwd(), "public", "uploads");
+  const uploadsDirPath = makeUploadsDirPath();
   await fs.mkdir(uploadsDirPath, { recursive: true });
 
   for (const file of files) {
@@ -46,7 +46,7 @@ export const saveUploadedFiles = async (postId: number, files: Array<File>) => {
     const newImageName = uuidv4();
 
     await prisma.$transaction(async (tx) => {
-      await tx.blogPostImage.create({
+      const imageRecord = await tx.blogPostImage.create({
         data: {
           postId,
           name: newImageName,
@@ -60,19 +60,13 @@ export const saveUploadedFiles = async (postId: number, files: Array<File>) => {
         },
       });
 
-      const postUploadsDirPath = path.join(uploadsDirPath, postId.toString());
+      const postUploadsDirPath = makePostUploadsDirPath(postId);
       await fs.mkdir(postUploadsDirPath, { recursive: true });
 
-      const imageFilePath = path.join(
-        postUploadsDirPath,
-        `${newImageName}.${imageMetadata.format}`,
-      );
+      const imageFilePath = makeImagePath(imageRecord);
       await fs.writeFile(imageFilePath, imageBuffer);
 
-      const thumbnailFilePath = path.join(
-        postUploadsDirPath,
-        `${newImageName}__thumb.${THUMBNAIL_FORMAT}`,
-      );
+      const thumbnailFilePath = makeThumbnailPath(imageRecord);
       await fs.writeFile(thumbnailFilePath, thumbnailBuffer);
     });
   }
@@ -91,3 +85,21 @@ export const makeImageUrl = (image: BlogPostImage): string =>
 
 export const makeThumbnailUrl = (image: BlogPostImage): string =>
   `/uploads/${image.postId}/${image.name}__thumb.${THUMBNAIL_FORMAT}`;
+
+export const makeUploadsDirPath = (): string =>
+  path.join(process.cwd(), "public", "uploads");
+
+export const makePostUploadsDirPath = (postId: number): string =>
+  path.join(makeUploadsDirPath(), postId.toString());
+
+export const makeImagePath = (image: BlogPostImage): string =>
+  path.join(
+    makePostUploadsDirPath(image.postId),
+    `${image.name}.${image.format}`,
+  );
+
+export const makeThumbnailPath = (image: BlogPostImage): string =>
+  path.join(
+    makePostUploadsDirPath(image.postId),
+    `${image.name}__thumb.${THUMBNAIL_FORMAT}`,
+  );

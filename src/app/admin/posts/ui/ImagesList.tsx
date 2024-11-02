@@ -58,13 +58,17 @@ export const ImagesList = ({ images, className }: ImagesListProps) => {
                 label="Удалить?"
                 labelPosition="right"
               >
-                <Checkbox size="4" />
+                <Checkbox
+                  size="4"
+                  name="deleteFiles"
+                  value={image.id.toString()}
+                />
               </FormField>
             </div>
           </a>
         ))}
 
-        {images.length === 0 && <div className="px-3 py-2">Список пуст</div>}
+        {images.length === 0 && <div>Список пуст</div>}
       </div>
     </div>
   );

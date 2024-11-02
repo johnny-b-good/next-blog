@@ -5,6 +5,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { AuthError } from "next-auth";
+import fs from "node:fs/promises";
 
 // App
 // -----------------------------------------------------------------------------
@@ -16,7 +17,12 @@ import {
   SettingsSchema,
 } from "@/lib/schemas";
 import { signIn, signOut } from "@/auth";
-import { saveUploadedFiles, logError } from "@/lib/utils";
+import {
+  saveUploadedFiles,
+  logError,
+  makeImagePath,
+  makeThumbnailPath,
+} from "@/lib/utils";
 
 /** Состояние формы поста */
 export type BlogPostFormState = {
@@ -24,6 +30,7 @@ export type BlogPostFormState = {
     title?: string[];
     content?: string[];
     isPublished?: string[];
+    deleteFiles?: string[];
   };
   message?: string | null;
 };
@@ -99,6 +106,7 @@ export const updateBlogPost = async (
     content: formData.get("content"),
     isPublished: formData.get("isPublished"),
     files: formData.getAll("files"),
+    deleteFiles: formData.getAll("deleteFiles"),
   });
 
   if (!validatedFields.success) {
@@ -108,7 +116,8 @@ export const updateBlogPost = async (
     };
   }
 
-  const { title, content, isPublished, files } = validatedFields.data;
+  const { title, content, isPublished, files, deleteFiles } =
+    validatedFields.data;
 
   try {
     const blogPost = await prisma.blogPost.update({
@@ -124,6 +133,17 @@ export const updateBlogPost = async (
 
     if (files) {
       await saveUploadedFiles(blogPost.id, files);
+    }
+
+    if (deleteFiles) {
+      for (const fileId of deleteFiles) {
+        const deletedFile = await prisma.blogPostImage.delete({
+          where: { id: fileId },
+        });
+
+        await fs.rm(makeImagePath(deletedFile));
+        await fs.rm(makeThumbnailPath(deletedFile));
+      }
     }
   } catch (err) {
     logError(err);

@@ -37,7 +37,7 @@ model User {
 
 model BlogPostImage {
   id              Int      @id @default(autoincrement())
-  post            BlogPost @relation(fields: [postId], references: [id])
+  post            BlogPost @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId          Int
   name            String
   format          String
