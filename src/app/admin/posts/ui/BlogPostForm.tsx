@@ -2,7 +2,7 @@
 
 // Lib
 // -----------------------------------------------------------------------------
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import { BlogPost } from "@prisma/client";
 import { useFormState } from "react-dom";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
@@ -29,10 +29,15 @@ export interface BlogPostFormProps {
     payload: FormData,
   ) => Promise<BlogPostFormState>;
   blogPost?: BlogPost;
+  children?: ReactNode;
 }
 
 /** Blog post form component */
-export const BlogPostForm: FC<BlogPostFormProps> = ({ action, blogPost }) => {
+export const BlogPostForm: FC<BlogPostFormProps> = ({
+  action,
+  blogPost,
+  children,
+}) => {
   const initialState: BlogPostFormState = { message: null, errors: {} };
 
   const [state, formAction] = useFormState(action, initialState);
@@ -72,9 +77,11 @@ export const BlogPostForm: FC<BlogPostFormProps> = ({ action, blogPost }) => {
         <Checkbox name="isPublished" defaultChecked={blogPost?.isPublished} />
       </FormField>
 
-      <FormField label="Файлы">
+      <FormField label="Загрузить файлы">
         <Dropzone name="files" />
       </FormField>
+
+      {children}
 
       <div className="flex justify-end gap-4">
         <LinkButton href="/admin/posts">Отмена</LinkButton>

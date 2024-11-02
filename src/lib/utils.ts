@@ -11,6 +11,7 @@ import { v4 as uuidv4 } from "uuid";
 // App
 // -----------------------------------------------------------------------------
 import { THUMBNAIL_DIMENSIONS, THUMBNAIL_FORMAT } from "@/lib/consts";
+import { BlogPostImage } from "@prisma/client";
 
 dayjs.locale("ru");
 
@@ -32,6 +33,10 @@ export const saveUploadedFiles = async (postId: number, files: Array<File>) => {
     const image = sharp(imageBuffer);
     const imageMetadata = await image.metadata();
 
+    if (!imageMetadata.format) {
+      throw new Error("Bad image format");
+    }
+
     const thumbnail = image.resize(...THUMBNAIL_DIMENSIONS);
     const thumbnailMetadata = await thumbnail.metadata();
     const thumbnailBuffer = await thumbnail
@@ -45,6 +50,7 @@ export const saveUploadedFiles = async (postId: number, files: Array<File>) => {
         data: {
           postId,
           name: newImageName,
+          format: imageMetadata.format as string,
           originalWidth: imageMetadata.width ?? 0,
           originalHeight: imageMetadata.height ?? 0,
           originalName: file.name,
@@ -79,3 +85,9 @@ export const logError = (err: unknown) => {
     console.error(err.message);
   }
 };
+
+export const makeImageUrl = (image: BlogPostImage): string =>
+  `/uploads/${image.postId}/${image.name}.${image.format}`;
+
+export const makeThumbnailUrl = (image: BlogPostImage): string =>
+  `/uploads/${image.postId}/${image.name}__thumb.${THUMBNAIL_FORMAT}`;

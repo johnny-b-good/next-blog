@@ -28,3 +28,10 @@ export const Checked: Story = {
     checked: true,
   },
 };
+
+export const Size4: Story = {
+  args: {
+    checked: true,
+    size: "4",
+  },
+};
