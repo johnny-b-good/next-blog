@@ -7,7 +7,7 @@ import { Metadata } from "next";
 // -----------------------------------------------------------------------------
 import { getPost } from "@/lib/queries";
 import { Breadcrumbs } from "@/ui";
-import { BlogPostForm } from "@/app/admin/posts/ui";
+import { BlogPostForm, ImagesList } from "@/app/admin/posts/ui";
 import { updateBlogPost } from "@/lib/actions";
 
 export default async function AdminEditPostPage({
@@ -36,7 +36,9 @@ export default async function AdminEditPostPage({
         ]}
       />
 
-      <BlogPostForm action={updateBlogPostWithId} blogPost={blogPost} />
+      <BlogPostForm action={updateBlogPostWithId} blogPost={blogPost}>
+        <ImagesList images={blogPost.images} />
+      </BlogPostForm>
     </div>
   );
 }

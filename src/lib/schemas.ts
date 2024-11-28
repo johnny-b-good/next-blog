@@ -2,12 +2,30 @@
 // -----------------------------------------------------------------------------
 import { z } from "zod";
 
-/** Схема данных поста */
+// App
+// -----------------------------------------------------------------------------
+import { MAX_FILE_SIZE, ACCEPTED_FILE_TYPES } from "@/lib/consts";
+
+/** Схема данных формы поста */
 export const BlogPostSchema = z.object({
   id: z.number(),
   title: z.string().min(1, "Обязательное поле"),
   content: z.string().min(1, "Обязательное поле"),
   isPublished: z.coerce.boolean(),
+  files: z.optional(
+    z.array(
+      z
+        .instanceof(File)
+        .refine((file) => file.size <= MAX_FILE_SIZE, `Слишком больщой файл`)
+        .refine(
+          (file) =>
+            ACCEPTED_FILE_TYPES.includes(file.type) ||
+            file.type === "application/octet-stream", // TODO: bug workaround
+          "Неправильный тип файла",
+        ),
+    ),
+  ),
+  deleteFiles: z.optional(z.array(z.coerce.number())),
   createdAt: z.date(),
   updatedAt: z.date(),
 });
