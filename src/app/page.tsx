@@ -3,13 +3,11 @@
 import { getPostsForVisitors } from "@/lib/queries";
 import { BlogPostView, Pagination } from "@/app/ui";
 
-export default async function HomePage(
-  props: {
-    searchParams?: Promise<{
-      page?: string;
-    }>;
-  }
-) {
+export default async function HomePage(props: {
+  searchParams?: Promise<{
+    page?: string;
+  }>;
+}) {
   const searchParams = await props.searchParams;
   const currentPage = Number(searchParams?.page) || 1;
 

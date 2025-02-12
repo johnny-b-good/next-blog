@@ -10,11 +10,9 @@ import { Breadcrumbs } from "@/ui";
 import { BlogPostForm } from "@/app/admin/posts/ui";
 import { updateBlogPost } from "@/lib/actions";
 
-export default async function AdminEditPostPage(
-  props: {
-    params: Promise<{ id: string }>;
-  }
-) {
+export default async function AdminEditPostPage(props: {
+  params: Promise<{ id: string }>;
+}) {
   const params = await props.params;
   const id = parseInt(params.id);
 
