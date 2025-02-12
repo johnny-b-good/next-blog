@@ -15,14 +15,15 @@ import { formatDateTime } from "@/lib/utils";
 import { LinkList, SearchInput } from "./ui";
 import { Pagination } from "@/app/ui";
 
-export default async function AdminPostsPage({
-  searchParams,
-}: {
-  searchParams?: {
-    query?: string;
-    page?: string;
-  };
-}) {
+export default async function AdminPostsPage(
+  props: {
+    searchParams?: Promise<{
+      query?: string;
+      page?: string;
+    }>;
+  }
+) {
+  const searchParams = await props.searchParams;
   const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
 
