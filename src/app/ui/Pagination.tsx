@@ -18,47 +18,45 @@ export const Pagination = ({ totalPages }: { totalPages: number }) => {
 
   const allPages = generatePagination(currentPage, totalPages);
 
-  return (
-    <>
-      <div className="flex gap-4">
-        <PaginationArrow
-          direction="left"
-          href={createPageURL(currentPage - 1)}
-          isDisabled={currentPage <= 1}
-        />
+  return allPages.length > 1 ? (
+    <div className="flex gap-4">
+      <PaginationArrow
+        direction="left"
+        href={createPageURL(currentPage - 1)}
+        isDisabled={currentPage <= 1}
+      />
 
-        {allPages.map((page, index) => {
-          let position: "first" | "last" | "single" | "middle" | undefined;
+      {allPages.map((page, index) => {
+        let position: "first" | "last" | "single" | "middle" | undefined;
 
-          if (index === 0) {
-            position = "first";
-          } else if (index === allPages.length - 1) {
-            position = "last";
-          } else if (allPages.length === 1) {
-            position = "single";
-          } else if (page === "...") {
-            position = "middle";
-          }
+        if (index === 0) {
+          position = "first";
+        } else if (index === allPages.length - 1) {
+          position = "last";
+        } else if (allPages.length === 1) {
+          position = "single";
+        } else if (page === "...") {
+          position = "middle";
+        }
 
-          return (
-            <PaginationNumber
-              key={`${page}-${index}`}
-              href={createPageURL(page)}
-              page={page}
-              position={position}
-              isActive={currentPage === page}
-            />
-          );
-        })}
+        return (
+          <PaginationNumber
+            key={`${page}-${index}`}
+            href={createPageURL(page)}
+            page={page}
+            position={position}
+            isActive={currentPage === page}
+          />
+        );
+      })}
 
-        <PaginationArrow
-          direction="right"
-          href={createPageURL(currentPage + 1)}
-          isDisabled={currentPage >= totalPages}
-        />
-      </div>
-    </>
-  );
+      <PaginationArrow
+        direction="right"
+        href={createPageURL(currentPage + 1)}
+        isDisabled={currentPage >= totalPages}
+      />
+    </div>
+  ) : null;
 };
 
 function PaginationNumber({
