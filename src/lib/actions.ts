@@ -126,7 +126,7 @@ export const deleteBlogPost = async (id: number) => {
   try {
     await prisma.blogPost.delete({ where: { id } });
   } catch {
-    message: "Ошибка удаления поста";
+    return { message: "Ошибка удаления поста" };
   }
 
   revalidatePath("/admin/posts");
