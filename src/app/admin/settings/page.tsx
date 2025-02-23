@@ -4,10 +4,10 @@ import type { Metadata } from "next";
 
 // App
 // -----------------------------------------------------------------------------
-import { Breadcrumbs } from "@/ui";
 import { SettingsForm } from "./ui";
 import { getSettings } from "@/lib/queries";
 import { updateSettings } from "@/lib/actions";
+import { Breadcrumbs } from "@/app/ui";
 
 export default async function AdminSettingsPage() {
   const settings = await getSettings();
@@ -17,8 +17,8 @@ export default async function AdminSettingsPage() {
       <Breadcrumbs
         className="mb-8"
         parts={[
-          { text: "Администрирование", url: "/admin" },
-          { text: "Настройки" },
+          { content: "Администрирование", url: "/admin" },
+          { content: "Настройки" },
         ]}
       />
 

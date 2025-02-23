@@ -5,8 +5,8 @@ import { Metadata } from "next";
 // App
 // -----------------------------------------------------------------------------
 import { BlogPostForm } from "@/app/admin/posts/ui";
-import { Breadcrumbs } from "@/ui";
 import { createBlogPost } from "@/lib/actions";
+import { Breadcrumbs } from "@/app/ui";
 
 export default async function AdminCreatePostPage() {
   return (
@@ -14,9 +14,9 @@ export default async function AdminCreatePostPage() {
       <Breadcrumbs
         className="mb-8"
         parts={[
-          { text: "Администрирование", url: "/admin" },
-          { text: "Записи", url: "/admin/posts" },
-          { text: "Создать пост" },
+          { content: "Администрирование", url: "/admin" },
+          { content: "Записи", url: "/admin/posts" },
+          { content: "Создать пост" },
         ]}
       />
 

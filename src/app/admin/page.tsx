@@ -5,12 +5,15 @@ import type { Metadata } from "next";
 
 // App
 // -----------------------------------------------------------------------------
-import { Breadcrumbs, LinkButton } from "@/ui";
+import { Breadcrumbs, LinkButton } from "@/app/ui";
 
 export default async function AdminPage() {
   return (
     <>
-      <Breadcrumbs className="mb-8" parts={[{ text: "Администрирование" }]} />
+      <Breadcrumbs
+        className="mb-8"
+        parts={[{ content: "Администрирование" }]}
+      />
 
       <div className="flex gap-4">
         <LinkButton href="/admin/posts">

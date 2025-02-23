@@ -5,10 +5,11 @@
 import { FC, useActionState } from "react";
 import { Settings } from "@prisma/client";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
+import { Button, Input, Alert, FormField } from "@something-ui/components";
 
 // App
 // -----------------------------------------------------------------------------
-import { Button, Input, LinkButton, Alert, FormField } from "@/ui";
+import { LinkButton } from "@/app/ui";
 import { SettingsFormState } from "@/lib/actions";
 
 // Props

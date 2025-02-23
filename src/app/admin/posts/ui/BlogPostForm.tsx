@@ -5,18 +5,18 @@
 import { FC, useActionState } from "react";
 import { BlogPost } from "@prisma/client";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
-
-// App
-// -----------------------------------------------------------------------------
 import {
   Textarea,
   Button,
   Input,
-  LinkButton,
   Alert,
   FormField,
   Checkbox,
-} from "@/ui";
+} from "@something-ui/components";
+import { LinkButton } from "@/app/ui";
+
+// App
+// -----------------------------------------------------------------------------
 import { BlogPostFormState } from "@/lib/actions";
 
 // Props
