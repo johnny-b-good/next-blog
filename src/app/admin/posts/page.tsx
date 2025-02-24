@@ -9,20 +9,18 @@ import { Metadata } from "next";
 
 // App
 // -----------------------------------------------------------------------------
-import { LinkButton, Breadcrumbs } from "@/ui";
 import { getPostsForAdmin } from "@/lib/queries";
 import { formatDateTime } from "@/lib/utils";
 import { LinkList, SearchInput } from "./ui";
-import { Pagination } from "@/app/ui";
+import { Pagination, Breadcrumbs, LinkButton } from "@/app/ui";
 
-export default async function AdminPostsPage({
-  searchParams,
-}: {
-  searchParams?: {
+export default async function AdminPostsPage(props: {
+  searchParams?: Promise<{
     query?: string;
     page?: string;
-  };
+  }>;
 }) {
+  const searchParams = await props.searchParams;
   const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
 
@@ -36,8 +34,8 @@ export default async function AdminPostsPage({
       <Breadcrumbs
         className="mb-8"
         parts={[
-          { text: "Администрирование", url: "/admin" },
-          { text: "Записи" },
+          { content: "Администрирование", url: "/admin" },
+          { content: "Записи" },
         ]}
       />
 

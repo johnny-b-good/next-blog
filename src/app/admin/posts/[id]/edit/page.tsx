@@ -6,15 +6,14 @@ import { Metadata } from "next";
 // App
 // -----------------------------------------------------------------------------
 import { getPost } from "@/lib/queries";
-import { Breadcrumbs } from "@/ui";
 import { BlogPostForm } from "@/app/admin/posts/ui";
 import { updateBlogPost } from "@/lib/actions";
+import { Breadcrumbs } from "@/app/ui";
 
-export default async function AdminEditPostPage({
-  params,
-}: {
-  params: { id: string };
+export default async function AdminEditPostPage(props: {
+  params: Promise<{ id: string }>;
 }) {
+  const params = await props.params;
   const id = parseInt(params.id);
 
   const blogPost = await getPost(id);
@@ -30,9 +29,9 @@ export default async function AdminEditPostPage({
       <Breadcrumbs
         className="mb-8"
         parts={[
-          { text: "Администрирование", url: "/admin" },
-          { text: "Записи", url: "/admin/posts" },
-          { text: "Редактировать пост" },
+          { content: "Администрирование", url: "/admin" },
+          { content: "Записи", url: "/admin/posts" },
+          { content: "Редактировать пост" },
         ]}
       />
 

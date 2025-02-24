@@ -2,13 +2,18 @@
 
 // Lib
 // -----------------------------------------------------------------------------
-import { FC } from "react";
-import { useFormState } from "react-dom";
+import { FC, useActionState } from "react";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
+import {
+  Button,
+  Input,
+  Alert,
+  PasswordInput,
+  FormField,
+} from "@something-ui/components";
 
 // App
 // -----------------------------------------------------------------------------
-import { Button, Input, Alert, PasswordInput, FormField } from "@/ui";
 import { LoginFormState } from "@/lib/actions";
 
 // Props
@@ -24,7 +29,7 @@ export interface LoginFormProps {
 export const LoginForm: FC<LoginFormProps> = ({ action }) => {
   const initialState: LoginFormState = { message: null, errors: {} };
 
-  const [state, formAction] = useFormState(action, initialState);
+  const [state, formAction] = useActionState(action, initialState);
 
   return (
     <form className="flex flex-col gap-4" action={formAction}>

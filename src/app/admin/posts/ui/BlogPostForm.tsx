@@ -2,22 +2,21 @@
 
 // Lib
 // -----------------------------------------------------------------------------
-import { FC } from "react";
+import { FC, useActionState } from "react";
 import { BlogPost } from "@prisma/client";
-import { useFormState } from "react-dom";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
-
-// App
-// -----------------------------------------------------------------------------
 import {
   Textarea,
   Button,
   Input,
-  LinkButton,
   Alert,
   FormField,
   Checkbox,
-} from "@/ui";
+} from "@something-ui/components";
+import { LinkButton } from "@/app/ui";
+
+// App
+// -----------------------------------------------------------------------------
 import { BlogPostFormState } from "@/lib/actions";
 
 // Props
@@ -34,7 +33,7 @@ export interface BlogPostFormProps {
 export const BlogPostForm: FC<BlogPostFormProps> = ({ action, blogPost }) => {
   const initialState: BlogPostFormState = { message: null, errors: {} };
 
-  const [state, formAction] = useFormState(action, initialState);
+  const [state, formAction] = useActionState(action, initialState);
 
   return (
     <form className="flex flex-col gap-4" action={formAction}>
