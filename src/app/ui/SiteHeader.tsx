@@ -1,6 +1,5 @@
 // Lib
 // -----------------------------------------------------------------------------
-import { auth } from "@/auth";
 import { SiteMenu } from "./SiteMenu";
 
 // App
@@ -14,8 +13,6 @@ export type SiteHeaderProps = {
 };
 
 export const SiteHeader = async ({ siteName }: SiteHeaderProps) => {
-  const session = await auth();
-
   return (
     <header className="sticky top-0 flex items-center gap-4 border-t-4 border-orange-500 bg-white px-6 py-4 shadow-md">
       <h1>
@@ -26,7 +23,7 @@ export const SiteHeader = async ({ siteName }: SiteHeaderProps) => {
 
       <div className="flex-grow"></div>
 
-      <SiteMenu hasUser={Boolean(session?.user)} />
+      <SiteMenu />
     </header>
   );
 };

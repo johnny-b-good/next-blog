@@ -3,8 +3,9 @@
 // Lib
 // -----------------------------------------------------------------------------
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { AuthError } from "next-auth";
+import { APIError } from "better-auth/api";
 
 // App
 // -----------------------------------------------------------------------------
@@ -15,7 +16,7 @@ import {
   LoginSchema,
   SettingsSchema,
 } from "@/lib/schemas";
-import { signIn, signOut } from "@/auth";
+import { auth } from "@/auth";
 
 /** Состояние формы поста */
 export type BlogPostFormState = {
@@ -39,7 +40,7 @@ export type SettingsFormState = {
 /** Состояние формы логина */
 export type LoginFormState = {
   errors?: {
-    name?: string[];
+    username?: string[];
     password?: string[];
   };
   message?: string | null;
@@ -176,7 +177,7 @@ export const login = async (
   formData: FormData,
 ) => {
   const validatedFields = LoginSchema.safeParse({
-    name: formData.get("name"),
+    username: formData.get("username"),
     password: formData.get("password"),
   });
 
@@ -188,22 +189,24 @@ export const login = async (
   }
 
   try {
-    await signIn("credentials", {
-      ...validatedFields.data,
-      redirectTo: "/admin",
+    await auth.api.signInUsername({
+      body: {
+        username: validatedFields.data.username,
+        password: validatedFields.data.password,
+      },
     });
+    redirect("/admin");
   } catch (error) {
-    if (error instanceof AuthError) {
-      if (error.type === "CredentialsSignin") {
-        return { message: "Неправильные логин или пароль" };
-      } else {
-        return { message: "Ошибка входа" };
-      }
+    if (error instanceof APIError) {
+      return { message: "Ошибка входа" };
     }
     throw error;
   }
 };
 
 export const logout = async () => {
-  await signOut();
+  await auth.api.signOut({
+    headers: await headers(),
+  });
+  redirect("/login");
 };
