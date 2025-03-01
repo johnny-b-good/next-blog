@@ -18,8 +18,8 @@ async function main() {
     update: {},
     create: {
       id: 1,
-      name: "admin",
       password: "admin",
+      username: "admin@example.com",
     },
   });
 }

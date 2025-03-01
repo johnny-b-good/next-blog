@@ -40,8 +40,8 @@ export const LoginForm: FC<LoginFormProps> = ({ action }) => {
         </Alert>
       )}
 
-      <FormField label="Пользователь" errors={state?.errors?.name}>
-        <Input name="name" invalid={Boolean(state?.errors?.name)} />
+      <FormField label="Пользователь" errors={state?.errors?.username}>
+        <Input name="username" invalid={Boolean(state?.errors?.username)} />
       </FormField>
 
       <FormField label="Пароль" errors={state?.errors?.password}>

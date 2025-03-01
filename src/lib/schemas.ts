@@ -32,6 +32,6 @@ export const SettingsSchema = z.object({
 });
 
 export const LoginSchema = z.object({
-  name: z.string().min(1, "Обязательное поле"),
+  username: z.string().min(1, "Обязательное поле"),
   password: z.string().min(1, "Обязательное поле"),
 });

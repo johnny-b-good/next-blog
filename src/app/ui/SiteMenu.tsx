@@ -12,12 +12,13 @@ import { DropdownMenu, DropdownMenuProps } from "@something-ui/components";
 // App
 // -----------------------------------------------------------------------------
 import { logout } from "@/lib/actions";
+import { authClient } from "@/lib/authClient";
 
-// Props
+// Consts
 // -----------------------------------------------------------------------------
-export type SiteMenuProps = { hasUser: boolean };
-
-export const SiteMenu = ({ hasUser }: SiteMenuProps) => {
+const { useSession } = authClient;
+export const SiteMenu = () => {
+  const session = useSession();
   const { replace } = useRouter();
 
   const menuItems: DropdownMenuProps["items"] = [
@@ -28,7 +29,7 @@ export const SiteMenu = ({ hasUser }: SiteMenuProps) => {
     },
   ];
 
-  if (hasUser) {
+  if (session.data) {
     menuItems.push({
       key: "logout",
       label: "Выйти",
