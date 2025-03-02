@@ -16,6 +16,8 @@ export type SessionPayload = {
 const secretKey = process.env.SESSION_SECRET;
 const encodedKey = new TextEncoder().encode(secretKey);
 
+const sessionExpirationTime = 7 * 24 * 60 * 60 * 1000; // 7 days in milliseconds
+
 export async function encrypt(payload: SessionPayload) {
   return new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })
@@ -36,7 +38,7 @@ export async function decrypt(session: string | undefined = "") {
 }
 
 export async function createSession(name: string) {
-  const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+  const expiresAt = new Date(Date.now() + sessionExpirationTime);
   const session = await encrypt({ name, expiresAt });
   const cookieStore = await cookies();
 
@@ -68,7 +70,7 @@ export async function updateSession() {
     return null;
   }
 
-  const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+  const expires = new Date(Date.now() + sessionExpirationTime);
 
   const cookieStore = await cookies();
   cookieStore.set("session", session, {
