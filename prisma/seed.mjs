@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { scrypt } from "node:crypto";
 
 const prisma = new PrismaClient();
 
@@ -13,13 +14,33 @@ async function main() {
     },
   });
 
+  const userId = "1";
+
+  const now = new Date();
+
   await prisma.user.upsert({
-    where: { id: 1 },
+    where: { id: userId },
     update: {},
     create: {
-      id: 1,
-      password: "admin",
-      username: "admin@example.com",
+      id: userId,
+      email: "test@example.com",
+      name: "admin",
+      username: "admin",
+      emailVerified: true,
+      createdAt: now,
+      updatedAt: now,
+    },
+  });
+
+  const accountId = "1";
+
+  await prisma.account.upsert({
+    where: { id: accountId },
+    update: {},
+    create: {
+      id: accountId,
+      userId,
+      password: scrypt("swordfish", "salt", 64),
     },
   });
 }
