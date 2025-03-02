@@ -38,5 +38,5 @@ export const LoginSchema = z.object({
 
 export const SessionSchema = z.object({
   name: z.string(),
-  expiresAt: z.date(),
+  expiresAt: z.coerce.date(),
 });
