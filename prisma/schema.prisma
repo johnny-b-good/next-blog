@@ -30,6 +30,6 @@ model Settings {
 
 model User {
   id       Int    @id @default(autoincrement())
-  name     String
+  name     String @unique
   password String
 }

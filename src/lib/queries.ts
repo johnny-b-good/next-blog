@@ -65,5 +65,5 @@ export const getSettings = async () => {
 };
 
 export const getUser = async (name: string) => {
-  return await prisma.user.findFirst({ where: { name } });
+  return await prisma.user.findUnique({ where: { name } });
 };
