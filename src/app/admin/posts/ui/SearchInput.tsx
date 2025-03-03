@@ -5,10 +5,7 @@
 import { FC } from "react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
-
-// App
-// -----------------------------------------------------------------------------
-import { Input, InputProps } from "@/ui/Input";
+import { Input, InputProps } from "@something-ui/components";
 
 // Props
 // -----------------------------------------------------------------------------

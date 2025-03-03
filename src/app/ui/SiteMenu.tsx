@@ -7,10 +7,10 @@ import {
   Cog6ToothIcon,
 } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
+import { DropdownMenu, DropdownMenuProps } from "@something-ui/components";
 
 // App
 // -----------------------------------------------------------------------------
-import { DropdownMenu, DropdownMenuProps } from "@/ui";
 import { logout } from "@/lib/actions";
 
 // Props

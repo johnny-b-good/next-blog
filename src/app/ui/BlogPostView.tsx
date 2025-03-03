@@ -8,7 +8,7 @@ import "highlight.js/styles/base16/tomorrow-night.css";
 
 // App
 // -----------------------------------------------------------------------------
-import { Link } from "@/ui";
+import { Link } from "@/app/ui";
 import { formatDateTime } from "@/lib/utils";
 
 // Props
@@ -24,7 +24,10 @@ const md = markdownit({
     if (lang && hljs.getLanguage(lang)) {
       try {
         return hljs.highlight(str, { language: lang }).value;
-      } catch (__) {}
+      } catch (err) {
+        // TODO: Handle error
+        console.error(err);
+      }
     }
 
     return "";

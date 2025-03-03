@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "@something-ui/components/index.css";
 
 import { getSettings } from "@/lib/queries";
 import "./globals.css";

@@ -8,7 +8,10 @@ import type { Metadata } from "next";
 import { BlogPostView } from "@/app/ui";
 import { getPost } from "@/lib/queries";
 
-export default async function HomePage({ params }: { params: { id: string } }) {
+export default async function HomePage(props: {
+  params: Promise<{ id: string }>;
+}) {
+  const params = await props.params;
   const id = parseInt(params.id);
 
   const blogPost = await getPost(id);
@@ -20,11 +23,10 @@ export default async function HomePage({ params }: { params: { id: string } }) {
   return <BlogPostView key={blogPost.id} blogPost={blogPost} />;
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { id: string };
+export async function generateMetadata(props: {
+  params: Promise<{ id: string }>;
 }): Promise<Metadata> {
+  const params = await props.params;
   const id = parseInt(params.id);
 
   const blogPost = await getPost(id);

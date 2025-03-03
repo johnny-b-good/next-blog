@@ -2,23 +2,22 @@
 
 // Lib
 // -----------------------------------------------------------------------------
-import { FC, ReactNode } from "react";
+import { FC, useActionState, ReactNode } from "react";
 import { BlogPost } from "@prisma/client";
-import { useFormState } from "react-dom";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
-
-// App
-// -----------------------------------------------------------------------------
 import {
   Textarea,
   Button,
   Input,
-  LinkButton,
   Alert,
   FormField,
   Checkbox,
-  Dropzone,
-} from "@/ui";
+  LinkButton,
+} from "@something-ui/components";
+import { Dropzone } from "@/app/ui";
+
+// App
+// -----------------------------------------------------------------------------
 import { BlogPostFormState } from "@/lib/actions";
 import {
   MAX_FILE_SIZE,
@@ -44,7 +43,7 @@ export const BlogPostForm: FC<BlogPostFormProps> = ({
 }) => {
   const initialState: BlogPostFormState = { message: null, errors: {} };
 
-  const [state, formAction] = useFormState(action, initialState);
+  const [state, formAction] = useActionState(action, initialState);
 
   return (
     <form className="flex flex-col gap-4" action={formAction}>

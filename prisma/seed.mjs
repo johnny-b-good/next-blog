@@ -1,4 +1,12 @@
 import { PrismaClient } from "@prisma/client";
+import { scryptSync } from "node:crypto";
+
+const PASSWORD_SALT = process.env.PASSWORD_SALT;
+
+if (!PASSWORD_SALT) {
+  console.error("Please provide a PASSWORD_SALT environment variable");
+  process.exit(1);
+}
 
 const prisma = new PrismaClient();
 
@@ -19,7 +27,7 @@ async function main() {
     create: {
       id: 1,
       name: "admin",
-      password: "admin",
+      password: scryptSync("admin", PASSWORD_SALT, 64).toString("hex"),
     },
   });
 }

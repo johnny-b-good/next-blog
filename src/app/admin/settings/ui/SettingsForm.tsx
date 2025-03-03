@@ -2,14 +2,14 @@
 
 // Lib
 // -----------------------------------------------------------------------------
-import { FC } from "react";
+import { FC, useActionState } from "react";
 import { Settings } from "@prisma/client";
-import { useFormState } from "react-dom";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
+import { Button, Input, Alert, FormField } from "@something-ui/components";
 
 // App
 // -----------------------------------------------------------------------------
-import { Button, Input, LinkButton, Alert, FormField } from "@/ui";
+import { LinkButton } from "@/app/ui";
 import { SettingsFormState } from "@/lib/actions";
 
 // Props
@@ -26,7 +26,7 @@ export interface SettingsFormProps {
 export const SettingsForm: FC<SettingsFormProps> = ({ action, settings }) => {
   const initialState: SettingsFormState = { message: null, errors: {} };
 
-  const [state, formAction] = useFormState(action, initialState);
+  const [state, formAction] = useActionState(action, initialState);
 
   return (
     <form className="flex flex-col gap-4" action={formAction}>
