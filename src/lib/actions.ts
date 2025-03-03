@@ -4,7 +4,7 @@
 // -----------------------------------------------------------------------------
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { AuthError } from "next-auth";
+import { scryptSync } from "node:crypto";
 
 // App
 // -----------------------------------------------------------------------------
@@ -15,7 +15,10 @@ import {
   LoginSchema,
   SettingsSchema,
 } from "@/lib/schemas";
-import { signIn, signOut } from "@/auth";
+import { createSession, deleteSession } from "@/lib/session";
+import { getUser } from "@/lib/queries";
+
+const PASSWORD_SALT = process.env.PASSWORD_SALT;
 
 /** Состояние формы поста */
 export type BlogPostFormState = {
@@ -187,23 +190,33 @@ export const login = async (
     };
   }
 
-  try {
-    await signIn("credentials", {
-      ...validatedFields.data,
-      redirectTo: "/admin",
-    });
-  } catch (error) {
-    if (error instanceof AuthError) {
-      if (error.type === "CredentialsSignin") {
-        return { message: "Неправильные логин или пароль" };
-      } else {
-        return { message: "Ошибка входа" };
-      }
-    }
-    throw error;
+  const { name, password } = validatedFields.data;
+
+  const user = await getUser(name);
+
+  if (!user) {
+    return { message: "Пользователь не найден" };
+  }
+
+  if (!PASSWORD_SALT) {
+    return { message: "Ошибка конфигурации" };
+  }
+
+  const hashedPassword = scryptSync(password, PASSWORD_SALT, 64).toString(
+    "hex",
+  );
+
+  const passwordsMatch = user.password === hashedPassword;
+
+  if (passwordsMatch) {
+    await createSession(name);
+    redirect("/admin");
+  } else {
+    return { message: "Неправильные логин или пароль" };
   }
 };
 
 export const logout = async () => {
-  await signOut();
+  await deleteSession();
+  redirect("/login");
 };

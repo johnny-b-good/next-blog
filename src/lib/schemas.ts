@@ -35,3 +35,8 @@ export const LoginSchema = z.object({
   name: z.string().min(1, "Обязательное поле"),
   password: z.string().min(1, "Обязательное поле"),
 });
+
+export const SessionSchema = z.object({
+  name: z.string(),
+  expiresAt: z.coerce.date(),
+});
