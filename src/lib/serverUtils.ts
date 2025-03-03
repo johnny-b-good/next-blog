@@ -1,22 +1,16 @@
 // Lib
 // -----------------------------------------------------------------------------
+import "server-only";
 import fs from "node:fs/promises";
 import path from "node:path";
 import prisma from "@/lib/db";
 import sharp from "sharp";
-import dayjs from "dayjs";
-import "dayjs/locale/ru";
 import { v4 as uuidv4 } from "uuid";
 
 // App
 // -----------------------------------------------------------------------------
 import { THUMBNAIL_DIMENSIONS, THUMBNAIL_FORMAT } from "@/lib/consts";
 import { BlogPostImage } from "@prisma/client";
-
-dayjs.locale("ru");
-
-export const formatDateTime = (date: Date): string =>
-  dayjs(date).format("DD MMM YYYY, HH:mm");
 
 export const saveUploadedFiles = async (postId: number, files: Array<File>) => {
   const uploadsDirPath = makeUploadsDirPath();

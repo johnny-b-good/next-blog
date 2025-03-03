@@ -14,7 +14,7 @@ import {
   Checkbox,
   LinkButton,
 } from "@something-ui/components";
-import { Dropzone } from "@/app/ui";
+import { Dropzone } from "@/app/ui/Dropzone";
 
 // App
 // -----------------------------------------------------------------------------

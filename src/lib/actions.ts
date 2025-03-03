@@ -23,7 +23,7 @@ import {
   logError,
   makeImagePath,
   makeThumbnailPath,
-} from "@/lib/utils";
+} from "@/lib/serverUtils";
 
 const PASSWORD_SALT = process.env.PASSWORD_SALT;
 

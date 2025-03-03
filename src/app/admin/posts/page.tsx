@@ -10,7 +10,7 @@ import { Metadata } from "next";
 // App
 // -----------------------------------------------------------------------------
 import { getPostsForAdmin } from "@/lib/queries";
-import { formatDateTime } from "@/lib/utils";
+import { formatDateTime } from "@/lib/clientUtils";
 import { LinkList, SearchInput } from "./ui";
 import { Pagination, Breadcrumbs, LinkButton } from "@/app/ui";
 

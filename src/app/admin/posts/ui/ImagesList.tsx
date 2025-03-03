@@ -3,11 +3,11 @@
 import { clsx } from "clsx";
 import { BlogPostImage } from "@prisma/client";
 import Image from "next/image";
+import { Checkbox, FormField } from "@something-ui/components";
 
 // App
 // -----------------------------------------------------------------------------
-import { Checkbox, FormField } from "@/ui";
-import { makeImageUrl, makeThumbnailUrl } from "@/lib/utils";
+import { makeImageUrl, makeThumbnailUrl } from "@/lib/serverUtils";
 
 // Props
 // -----------------------------------------------------------------------------
