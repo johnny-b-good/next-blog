@@ -2,8 +2,8 @@
 
 // Lib
 // -----------------------------------------------------------------------------
-import { FC, useActionState, ReactNode } from "react";
-import { BlogPost } from "@prisma/client";
+import { FC, useActionState } from "react";
+import { BlogPost, BlogPostImage } from "@prisma/client";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import {
   Textarea,
@@ -23,6 +23,7 @@ import {
   MAX_FILE_SIZE,
   ACCEPTED_FILE_TYPES_WITH_EXTENSIONS,
 } from "@/lib/consts";
+import { ImagesList } from "./ImagesList";
 
 // Props
 // -----------------------------------------------------------------------------
@@ -32,14 +33,14 @@ export interface BlogPostFormProps {
     payload: FormData,
   ) => Promise<BlogPostFormState>;
   blogPost?: BlogPost;
-  children?: ReactNode;
+  blogPostImages?: Array<BlogPostImage>;
 }
 
 /** Blog post form component */
 export const BlogPostForm: FC<BlogPostFormProps> = ({
   action,
   blogPost,
-  children,
+  blogPostImages,
 }) => {
   const initialState: BlogPostFormState = { message: null, errors: {} };
 
@@ -80,6 +81,8 @@ export const BlogPostForm: FC<BlogPostFormProps> = ({
         <Checkbox name="isPublished" defaultChecked={blogPost?.isPublished} />
       </FormField>
 
+      {blogPostImages && <ImagesList images={blogPostImages} />}
+
       <FormField label="Загрузить файлы">
         <Dropzone
           name="files"
@@ -89,8 +92,6 @@ export const BlogPostForm: FC<BlogPostFormProps> = ({
           }}
         />
       </FormField>
-
-      {children}
 
       <div className="flex justify-end gap-4">
         <LinkButton href="/admin/posts">Отмена</LinkButton>

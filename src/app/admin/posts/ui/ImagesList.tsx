@@ -7,7 +7,7 @@ import { Checkbox, FormField } from "@something-ui/components";
 
 // App
 // -----------------------------------------------------------------------------
-import { makeImageUrl, makeThumbnailUrl } from "@/lib/serverUtils";
+import { makeImageUrl, makeThumbnailUrl } from "@/lib/utils";
 
 // Props
 // -----------------------------------------------------------------------------

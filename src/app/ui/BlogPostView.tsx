@@ -9,7 +9,7 @@ import "highlight.js/styles/base16/tomorrow-night.css";
 // App
 // -----------------------------------------------------------------------------
 import { Link } from "@/app/ui";
-import { formatDateTime } from "@/lib/clientUtils";
+import { formatDateTime } from "@/lib/utils";
 
 // Props
 // -----------------------------------------------------------------------------

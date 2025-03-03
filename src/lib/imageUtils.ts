@@ -4,13 +4,13 @@ import "server-only";
 import fs from "node:fs/promises";
 import path from "node:path";
 import prisma from "@/lib/db";
-import sharp from "sharp";
+import sharp, { Sharp, Metadata } from "sharp";
 import { v4 as uuidv4 } from "uuid";
+import { BlogPostImage } from "@prisma/client";
 
 // App
 // -----------------------------------------------------------------------------
 import { THUMBNAIL_DIMENSIONS, THUMBNAIL_FORMAT } from "@/lib/consts";
-import { BlogPostImage } from "@prisma/client";
 
 export const saveUploadedFiles = async (postId: number, files: Array<File>) => {
   const uploadsDirPath = makeUploadsDirPath();
@@ -21,21 +21,10 @@ export const saveUploadedFiles = async (postId: number, files: Array<File>) => {
       continue;
     }
 
-    const imageArrayBuffer = await file.arrayBuffer();
-    const imageBuffer = await Buffer.from(imageArrayBuffer);
+    const { image, imageBuffer, imageMetadata } = await imageFromFile(file);
 
-    const image = sharp(imageBuffer);
-    const imageMetadata = await image.metadata();
-
-    if (!imageMetadata.format) {
-      throw new Error("Bad image format");
-    }
-
-    const thumbnail = image.resize(...THUMBNAIL_DIMENSIONS);
-    const thumbnailMetadata = await thumbnail.metadata();
-    const thumbnailBuffer = await thumbnail
-      .toFormat(THUMBNAIL_FORMAT)
-      .toBuffer();
+    const { thumbnailMetadata, thumbnailBuffer } =
+      await thumbnailFromImage(image);
 
     const newImageName = uuidv4();
 
@@ -66,34 +55,65 @@ export const saveUploadedFiles = async (postId: number, files: Array<File>) => {
   }
 };
 
-export const logError = (err: unknown) => {
-  if (typeof err === "string") {
-    console.error(err);
-  } else if (err instanceof Error) {
-    console.error(err.message);
+export const deleteUploadedFiles = async (deletedFileIds: Array<number>) => {
+  for (const fileId of deletedFileIds) {
+    const deletedFile = await prisma.blogPostImage.delete({
+      where: { id: fileId },
+    });
+
+    await fs.rm(makeImagePath(deletedFile));
+    await fs.rm(makeThumbnailPath(deletedFile));
   }
 };
 
-export const makeImageUrl = (image: BlogPostImage): string =>
-  `/uploads/${image.postId}/${image.name}.${image.format}`;
-
-export const makeThumbnailUrl = (image: BlogPostImage): string =>
-  `/uploads/${image.postId}/${image.name}__thumb.${THUMBNAIL_FORMAT}`;
-
-export const makeUploadsDirPath = (): string =>
+const makeUploadsDirPath = (): string =>
   path.join(process.cwd(), "public", "uploads");
 
-export const makePostUploadsDirPath = (postId: number): string =>
+const makePostUploadsDirPath = (postId: number): string =>
   path.join(makeUploadsDirPath(), postId.toString());
 
-export const makeImagePath = (image: BlogPostImage): string =>
+const makeImagePath = (image: BlogPostImage): string =>
   path.join(
     makePostUploadsDirPath(image.postId),
     `${image.name}.${image.format}`,
   );
 
-export const makeThumbnailPath = (image: BlogPostImage): string =>
+const makeThumbnailPath = (image: BlogPostImage): string =>
   path.join(
     makePostUploadsDirPath(image.postId),
     `${image.name}__thumb.${THUMBNAIL_FORMAT}`,
   );
+
+const imageFromFile = async (
+  file: File,
+): Promise<{ image: Sharp; imageBuffer: Buffer; imageMetadata: Metadata }> => {
+  const imageArrayBuffer = await file.arrayBuffer();
+  const imageBuffer = Buffer.from(imageArrayBuffer);
+
+  const image = sharp(imageBuffer);
+  const imageMetadata = await image.metadata();
+
+  if (!imageMetadata.format) {
+    throw new Error("Bad image format");
+  }
+
+  return { image, imageBuffer, imageMetadata };
+};
+
+const thumbnailFromImage = async (
+  image: Sharp,
+): Promise<{
+  thumbnail: Sharp;
+  thumbnailBuffer: Buffer;
+  thumbnailMetadata: Metadata;
+}> => {
+  const thumbnail = image.resize(...THUMBNAIL_DIMENSIONS);
+  const thumbnailMetadata = await thumbnail.metadata();
+  const thumbnailBuffer = await thumbnail.toFormat(THUMBNAIL_FORMAT).toBuffer();
+
+  return {
+    thumbnail,
+    thumbnailMetadata,
+    thumbnailBuffer,
+  };
+};

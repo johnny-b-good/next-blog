@@ -5,7 +5,6 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { scryptSync } from "node:crypto";
-import fs from "node:fs/promises";
 
 // App
 // -----------------------------------------------------------------------------
@@ -18,12 +17,8 @@ import {
 } from "@/lib/schemas";
 import { createSession, deleteSession } from "@/lib/session";
 import { getUser } from "@/lib/queries";
-import {
-  saveUploadedFiles,
-  logError,
-  makeImagePath,
-  makeThumbnailPath,
-} from "@/lib/serverUtils";
+import { saveUploadedFiles, deleteUploadedFiles } from "@/lib/imageUtils";
+import { logError } from "./utils";
 
 const PASSWORD_SALT = process.env.PASSWORD_SALT;
 
@@ -139,14 +134,7 @@ export const updateBlogPost = async (
     }
 
     if (deleteFiles) {
-      for (const fileId of deleteFiles) {
-        const deletedFile = await prisma.blogPostImage.delete({
-          where: { id: fileId },
-        });
-
-        await fs.rm(makeImagePath(deletedFile));
-        await fs.rm(makeThumbnailPath(deletedFile));
-      }
+      await deleteUploadedFiles(deleteFiles);
     }
   } catch (err) {
     logError(err);
