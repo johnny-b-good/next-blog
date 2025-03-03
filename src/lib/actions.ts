@@ -5,6 +5,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { scryptSync } from "node:crypto";
+import fs from "node:fs/promises";
 
 // App
 // -----------------------------------------------------------------------------
@@ -17,6 +18,12 @@ import {
 } from "@/lib/schemas";
 import { createSession, deleteSession } from "@/lib/session";
 import { getUser } from "@/lib/queries";
+import {
+  saveUploadedFiles,
+  logError,
+  makeImagePath,
+  makeThumbnailPath,
+} from "@/lib/utils";
 
 const PASSWORD_SALT = process.env.PASSWORD_SALT;
 
@@ -26,6 +33,7 @@ export type BlogPostFormState = {
     title?: string[];
     content?: string[];
     isPublished?: string[];
+    deleteFiles?: string[];
   };
   message?: string | null;
 };
@@ -57,6 +65,7 @@ export const createBlogPost = async (
     title: formData.get("title"),
     content: formData.get("content"),
     isPublished: formData.get("isPublished"),
+    files: formData.getAll("files"),
   });
 
   if (!validatedFields.success) {
@@ -66,17 +75,22 @@ export const createBlogPost = async (
     };
   }
 
-  const { title, content, isPublished } = validatedFields.data;
+  const { title, content, isPublished, files } = validatedFields.data;
 
   try {
-    await prisma.blogPost.create({
+    const blogPost = await prisma.blogPost.create({
       data: {
         title,
         content,
         isPublished,
       },
     });
-  } catch {
+
+    if (files) {
+      await saveUploadedFiles(blogPost.id, files);
+    }
+  } catch (err) {
+    logError(err);
     return { message: "Ошибка создания поста" };
   }
 
@@ -94,6 +108,8 @@ export const updateBlogPost = async (
     title: formData.get("title"),
     content: formData.get("content"),
     isPublished: formData.get("isPublished"),
+    files: formData.getAll("files"),
+    deleteFiles: formData.getAll("deleteFiles"),
   });
 
   if (!validatedFields.success) {
@@ -103,10 +119,11 @@ export const updateBlogPost = async (
     };
   }
 
-  const { title, content, isPublished } = validatedFields.data;
+  const { title, content, isPublished, files, deleteFiles } =
+    validatedFields.data;
 
   try {
-    await prisma.blogPost.update({
+    const blogPost = await prisma.blogPost.update({
       where: {
         id,
       },
@@ -116,7 +133,23 @@ export const updateBlogPost = async (
         isPublished,
       },
     });
-  } catch {
+
+    if (files) {
+      await saveUploadedFiles(blogPost.id, files);
+    }
+
+    if (deleteFiles) {
+      for (const fileId of deleteFiles) {
+        const deletedFile = await prisma.blogPostImage.delete({
+          where: { id: fileId },
+        });
+
+        await fs.rm(makeImagePath(deletedFile));
+        await fs.rm(makeThumbnailPath(deletedFile));
+      }
+    }
+  } catch (err) {
+    logError(err);
     return { message: "Ошибка обновления поста" };
   }
 
@@ -128,7 +161,8 @@ export const updateBlogPost = async (
 export const deleteBlogPost = async (id: number) => {
   try {
     await prisma.blogPost.delete({ where: { id } });
-  } catch {
+  } catch (err) {
+    logError(err);
     return { message: "Ошибка удаления поста" };
   }
 
@@ -165,7 +199,8 @@ export const updateSettings = async (
         copyright,
       },
     });
-  } catch {
+  } catch (err) {
+    logError(err);
     return { message: "Ошибка обновления настроек" };
   }
 

@@ -2,7 +2,7 @@
 
 // Lib
 // -----------------------------------------------------------------------------
-import { FC, useActionState } from "react";
+import { FC, useActionState, ReactNode } from "react";
 import { BlogPost } from "@prisma/client";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import {
@@ -12,12 +12,17 @@ import {
   Alert,
   FormField,
   Checkbox,
+  LinkButton,
 } from "@something-ui/components";
-import { LinkButton } from "@/app/ui";
+import { Dropzone } from "@/app/ui";
 
 // App
 // -----------------------------------------------------------------------------
 import { BlogPostFormState } from "@/lib/actions";
+import {
+  MAX_FILE_SIZE,
+  ACCEPTED_FILE_TYPES_WITH_EXTENSIONS,
+} from "@/lib/consts";
 
 // Props
 // -----------------------------------------------------------------------------
@@ -27,10 +32,15 @@ export interface BlogPostFormProps {
     payload: FormData,
   ) => Promise<BlogPostFormState>;
   blogPost?: BlogPost;
+  children?: ReactNode;
 }
 
 /** Blog post form component */
-export const BlogPostForm: FC<BlogPostFormProps> = ({ action, blogPost }) => {
+export const BlogPostForm: FC<BlogPostFormProps> = ({
+  action,
+  blogPost,
+  children,
+}) => {
   const initialState: BlogPostFormState = { message: null, errors: {} };
 
   const [state, formAction] = useActionState(action, initialState);
@@ -69,6 +79,18 @@ export const BlogPostForm: FC<BlogPostFormProps> = ({ action, blogPost }) => {
       >
         <Checkbox name="isPublished" defaultChecked={blogPost?.isPublished} />
       </FormField>
+
+      <FormField label="Загрузить файлы">
+        <Dropzone
+          name="files"
+          dropzoneOptions={{
+            accept: ACCEPTED_FILE_TYPES_WITH_EXTENSIONS,
+            maxSize: MAX_FILE_SIZE,
+          }}
+        />
+      </FormField>
+
+      {children}
 
       <div className="flex justify-end gap-4">
         <LinkButton href="/admin/posts">Отмена</LinkButton>
