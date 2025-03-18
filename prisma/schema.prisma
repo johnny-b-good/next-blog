@@ -36,19 +36,20 @@ model User {
 }
 
 model BlogPostImage {
-  id              Int      @id @default(autoincrement())
-  post            BlogPost @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId          Int
-  name            String
-  format          String
-  originalWidth   Int
-  originalHeight  Int
-  originalName    String
-  originalType    String
-  thumbnailWidth  Int
-  thumbnailHeight Int
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  id               Int      @id @default(autoincrement())
+  post             BlogPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId           Int
+  name             String
+  format           String
+  originalWidth    Int
+  originalHeight   Int
+  originalName     String
+  originalType     String
+  originalFileSize Int
+  thumbnailWidth   Int
+  thumbnailHeight  Int
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 
   @@unique([postId, name])
 }

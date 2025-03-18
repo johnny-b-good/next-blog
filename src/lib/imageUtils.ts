@@ -38,6 +38,7 @@ export const saveUploadedFiles = async (postId: number, files: Array<File>) => {
           originalHeight: imageMetadata.height ?? 0,
           originalName: file.name,
           originalType: file.type,
+          originalFileSize: file.size,
           thumbnailWidth: thumbnailMetadata.width ?? 0,
           thumbnailHeight: thumbnailMetadata.height ?? 0,
         },

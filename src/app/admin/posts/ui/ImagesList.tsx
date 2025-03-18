@@ -4,6 +4,7 @@ import { clsx } from "clsx";
 import { BlogPostImage } from "@prisma/client";
 import Image from "next/image";
 import { Checkbox, FormField } from "@something-ui/components";
+import { filesize } from "filesize";
 
 // App
 // -----------------------------------------------------------------------------
@@ -48,8 +49,11 @@ export const ImagesList = ({ images, className }: ImagesListProps) => {
                 </div>
 
                 <div className="text-xs text-slate-500">
-                  {image.format.toUpperCase()}{" "}
+                  {image.format.toUpperCase()}
+                  {" | "}
                   {`${image.originalWidth}x${image.originalHeight}`}
+                  {" | "}
+                  {filesize(image.originalFileSize)}
                 </div>
               </div>
 

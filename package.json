@@ -25,6 +25,7 @@
     "clsx": "^2.1.1",
     "dayjs": "^1.11.13",
     "dompurify": "^3.2.4",
+    "filesize": "^10.1.6",
     "highlight.js": "^11.11.1",
     "jose": "^6.0.8",
     "markdown-it": "^14.1.0",
