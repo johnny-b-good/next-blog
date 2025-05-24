@@ -17,7 +17,7 @@ import {
 } from "@/lib/schemas";
 import { createSession, deleteSession } from "@/lib/session";
 import { getUser } from "@/lib/queries";
-import { saveUploadedFiles, deleteUploadedFiles } from "@/lib/imageUtils";
+import { saveUploadedFile, deleteUploadedFile } from "@/lib/imageUtils";
 import { logError } from "./utils";
 
 const PASSWORD_SALT = process.env.PASSWORD_SALT;
@@ -82,7 +82,9 @@ export const createBlogPost = async (
     });
 
     if (files) {
-      await saveUploadedFiles(blogPost.id, files);
+      for (const file of files) {
+        await saveUploadedFile(blogPost.id, file);
+      }
     }
   } catch (err) {
     logError(err);
@@ -130,11 +132,15 @@ export const updateBlogPost = async (
     });
 
     if (files) {
-      await saveUploadedFiles(blogPost.id, files);
+      for (const file of files) {
+        await saveUploadedFile(blogPost.id, file);
+      }
     }
 
     if (deleteFiles) {
-      await deleteUploadedFiles(deleteFiles);
+      for (const fileId of deleteFiles) {
+        await deleteUploadedFile(fileId);
+      }
     }
   } catch (err) {
     logError(err);

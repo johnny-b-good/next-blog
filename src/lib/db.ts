@@ -4,16 +4,13 @@ import path from "node:path";
 
 // App
 // -----------------------------------------------------------------------------
-import {
-  makeImagePath,
-  makeThumbnailPath,
-} from "@/lib/imageUtils";
+import { makeImagePath, makeThumbnailPath } from "@/lib/imageUtils";
 
 const prismaClientSingleton = () => {
   return new PrismaClient().$extends({
     query: {
       blogPostImage: {
-        delete: async ({ model, operation, args, query }) => {
+        delete: async ({ args, query }) => {
           const imageRecord = await query(args);
           if (imageRecord) {
             await fs.rm(makeImagePath(imageRecord));
@@ -21,7 +18,7 @@ const prismaClientSingleton = () => {
           }
         },
 
-        deleteMany: async ({ model, operation, args, query }) => {
+        deleteMany: async ({ args, query }) => {
           const imageRecords = await query(args);
           for (const imageRecord of imageRecords) {
             await fs.rm(makeImagePath(imageRecord));
