@@ -1,33 +1,11 @@
+// Для предотвращения ошибки превышения числа соединений БД,
+// возникающей при пересборке модулей NextJS, создающих новый клиент Prisma,
+// создается глобальный инстанс клиента.
+// Взято отсюда: https://www.prisma.io/docs/orm/more/help-and-troubleshooting/help-articles/nextjs-prisma-client-dev-practices
 import { PrismaClient } from "@prisma/client";
-import fs from "node:fs/promises";
-import path from "node:path";
-
-// App
-// -----------------------------------------------------------------------------
-import { makeImagePath, makeThumbnailPath } from "@/lib/imageUtils";
 
 const prismaClientSingleton = () => {
-  return new PrismaClient().$extends({
-    query: {
-      blogPostImage: {
-        delete: async ({ args, query }) => {
-          const imageRecord = await query(args);
-          if (imageRecord) {
-            await fs.rm(makeImagePath(imageRecord));
-            await fs.rm(makeThumbnailPath(imageRecord));
-          }
-        },
-
-        deleteMany: async ({ args, query }) => {
-          const imageRecords = await query(args);
-          for (const imageRecord of imageRecords) {
-            await fs.rm(makeImagePath(imageRecord));
-            await fs.rm(makeThumbnailPath(imageRecord));
-          }
-        },
-      },
-    },
-  });
+  return new PrismaClient();
 };
 
 declare const globalThis: {
