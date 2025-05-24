@@ -57,7 +57,17 @@ export const getPostsForAdmin = async (currentPage: number, query?: string) => {
 };
 
 export const getPost = async (id: number) => {
-  return await prisma.blogPost.findFirst({ where: { id } });
+  return await prisma.blogPost.findFirst({
+    where: { id },
+  });
+};
+
+export const getPostImages = async (postId: number) => {
+  return await prisma.blogPostImage.findMany({
+    where: {
+      postId,
+    },
+  });
 };
 
 export const getSettings = async () => {

@@ -2,9 +2,6 @@
 // возникающей при пересборке модулей NextJS, создающих новый клиент Prisma,
 // создается глобальный инстанс клиента.
 // Взято отсюда: https://www.prisma.io/docs/orm/more/help-and-troubleshooting/help-articles/nextjs-prisma-client-dev-practices
-
-// Lib
-// -----------------------------------------------------------------------------
 import { PrismaClient } from "@prisma/client";
 
 const prismaClientSingleton = () => {

@@ -5,7 +5,7 @@ import { Metadata } from "next";
 
 // App
 // -----------------------------------------------------------------------------
-import { getPost } from "@/lib/queries";
+import { getPost, getPostImages } from "@/lib/queries";
 import { BlogPostForm } from "@/app/admin/posts/ui";
 import { updateBlogPost } from "@/lib/actions";
 import { Breadcrumbs } from "@/app/ui";
@@ -22,6 +22,8 @@ export default async function AdminEditPostPage(props: {
     notFound();
   }
 
+  const blogPostImages = await getPostImages(id);
+
   const updateBlogPostWithId = updateBlogPost.bind(null, id);
 
   return (
@@ -35,7 +37,11 @@ export default async function AdminEditPostPage(props: {
         ]}
       />
 
-      <BlogPostForm action={updateBlogPostWithId} blogPost={blogPost} />
+      <BlogPostForm
+        action={updateBlogPostWithId}
+        blogPost={blogPost}
+        blogPostImages={blogPostImages}
+      />
     </div>
   );
 }
