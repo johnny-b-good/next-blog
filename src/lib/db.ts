@@ -8,7 +8,19 @@
 import { PrismaClient } from "@prisma/client";
 
 const prismaClientSingleton = () => {
-  return new PrismaClient();
+  return new PrismaClient().$extends({
+    query: {
+      blogPostImage: {
+        delete: async ({ model, operation, args, query }) => {
+          return;
+        },
+
+        deleteMany: async ({ model, operation, args, query }) => {
+          return;
+        },
+      },
+    },
+  });
 };
 
 declare const globalThis: {
